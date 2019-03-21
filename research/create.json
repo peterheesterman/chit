@@ -1,0 +1,193 @@
+{
+  "crate": {
+    "id": "steg",
+    "name": "steg",
+    "updated_at": "2018-11-01T05:34:49.325586+00:00",
+    "versions": [115563, 114994, 114844, 114843, 114792, 114015],
+    "keywords": ["reveal", "hide", "steganography", "steg"],
+    "categories": ["command-line-utilities", "text-processing", "encoding", "multimedia::images"],
+    "badges": [],
+    "created_at": "2018-10-22T19:15:53.475385+00:00",
+    "downloads": 300,
+    "recent_downloads": 78,
+    "max_version": "0.1.5",
+    "description": "Command line steganography tool",
+    "homepage": null,
+    "documentation": null,
+    "repository": "https://github.com/peterheesterman/lsb_png_steganography",
+    "links": {
+      "version_downloads": "/api/v1/crates/steg/downloads",
+      "versions": null,
+      "owners": "/api/v1/crates/steg/owners",
+      "owner_team": "/api/v1/crates/steg/owner_team",
+      "owner_user": "/api/v1/crates/steg/owner_user",
+      "reverse_dependencies": "/api/v1/crates/steg/reverse_dependencies"
+    },
+    "exact_match": false
+  },
+  "versions": [{
+    "id": 115563,
+    "crate": "steg",
+    "num": "0.1.5",
+    "dl_path": "/api/v1/crates/steg/0.1.5/download",
+    "readme_path": "/api/v1/crates/steg/0.1.5/readme",
+    "updated_at": "2018-11-01T05:34:49.325586+00:00",
+    "created_at": "2018-11-01T05:34:49.325586+00:00",
+    "downloads": 64,
+    "features": {},
+    "yanked": false,
+    "license": "MIT",
+    "links": {
+      "dependencies": "/api/v1/crates/steg/0.1.5/dependencies",
+      "version_downloads": "/api/v1/crates/steg/0.1.5/downloads",
+      "authors": "/api/v1/crates/steg/0.1.5/authors"
+    },
+    "crate_size": 30087,
+    "published_by": null
+  }, {
+    "id": 114994,
+    "crate": "steg",
+    "num": "0.1.4",
+    "dl_path": "/api/v1/crates/steg/0.1.4/download",
+    "readme_path": "/api/v1/crates/steg/0.1.4/readme",
+    "updated_at": "2018-10-29T05:21:08.781552+00:00",
+    "created_at": "2018-10-29T05:21:08.781552+00:00",
+    "downloads": 49,
+    "features": {},
+    "yanked": false,
+    "license": "MIT",
+    "links": {
+      "dependencies": "/api/v1/crates/steg/0.1.4/dependencies",
+      "version_downloads": "/api/v1/crates/steg/0.1.4/downloads",
+      "authors": "/api/v1/crates/steg/0.1.4/authors"
+    },
+    "crate_size": 20815,
+    "published_by": null
+  }, {
+    "id": 114844,
+    "crate": "steg",
+    "num": "0.1.3",
+    "dl_path": "/api/v1/crates/steg/0.1.3/download",
+    "readme_path": "/api/v1/crates/steg/0.1.3/readme",
+    "updated_at": "2018-10-28T08:14:10.434107+00:00",
+    "created_at": "2018-10-28T08:14:10.434107+00:00",
+    "downloads": 42,
+    "features": {},
+    "yanked": false,
+    "license": "MIT",
+    "links": {
+      "dependencies": "/api/v1/crates/steg/0.1.3/dependencies",
+      "version_downloads": "/api/v1/crates/steg/0.1.3/downloads",
+      "authors": "/api/v1/crates/steg/0.1.3/authors"
+    },
+    "crate_size": 17457,
+    "published_by": null
+  }, {
+    "id": 114843,
+    "crate": "steg",
+    "num": "0.1.2",
+    "dl_path": "/api/v1/crates/steg/0.1.2/download",
+    "readme_path": "/api/v1/crates/steg/0.1.2/readme",
+    "updated_at": "2018-10-28T08:07:00.934295+00:00",
+    "created_at": "2018-10-28T08:07:00.934295+00:00",
+    "downloads": 48,
+    "features": {},
+    "yanked": false,
+    "license": "MIT",
+    "links": {
+      "dependencies": "/api/v1/crates/steg/0.1.2/dependencies",
+      "version_downloads": "/api/v1/crates/steg/0.1.2/downloads",
+      "authors": "/api/v1/crates/steg/0.1.2/authors"
+    },
+    "crate_size": 17421,
+    "published_by": null
+  }, {
+    "id": 114792,
+    "crate": "steg",
+    "num": "0.1.1",
+    "dl_path": "/api/v1/crates/steg/0.1.1/download",
+    "readme_path": "/api/v1/crates/steg/0.1.1/readme",
+    "updated_at": "2018-10-27T20:50:25.425671+00:00",
+    "created_at": "2018-10-27T20:50:25.425671+00:00",
+    "downloads": 48,
+    "features": {},
+    "yanked": false,
+    "license": "MIT",
+    "links": {
+      "dependencies": "/api/v1/crates/steg/0.1.1/dependencies",
+      "version_downloads": "/api/v1/crates/steg/0.1.1/downloads",
+      "authors": "/api/v1/crates/steg/0.1.1/authors"
+    },
+    "crate_size": 15590,
+    "published_by": null
+  }, {
+    "id": 114015,
+    "crate": "steg",
+    "num": "0.1.0",
+    "dl_path": "/api/v1/crates/steg/0.1.0/download",
+    "readme_path": "/api/v1/crates/steg/0.1.0/readme",
+    "updated_at": "2018-10-22T19:15:53.475385+00:00",
+    "created_at": "2018-10-22T19:15:53.475385+00:00",
+    "downloads": 49,
+    "features": {},
+    "yanked": false,
+    "license": "MIT",
+    "links": {
+      "dependencies": "/api/v1/crates/steg/0.1.0/dependencies",
+      "version_downloads": "/api/v1/crates/steg/0.1.0/downloads",
+      "authors": "/api/v1/crates/steg/0.1.0/authors"
+    },
+    "crate_size": 15470,
+    "published_by": null
+  }],
+  "keywords": [{
+    "id": "reveal",
+    "keyword": "reveal",
+    "created_at": "2018-10-22T19:15:53.475385+00:00",
+    "crates_cnt": 2
+  }, {
+    "id": "hide",
+    "keyword": "hide",
+    "created_at": "2018-10-22T19:15:53.475385+00:00",
+    "crates_cnt": 2
+  }, {
+    "id": "steganography",
+    "keyword": "steganography",
+    "created_at": "2017-04-18T04:18:50.699753+00:00",
+    "crates_cnt": 8
+  }, {
+    "id": "steg",
+    "keyword": "steg",
+    "created_at": "2018-10-21T21:21:42.742758+00:00",
+    "crates_cnt": 5
+  }],
+  "categories": [{
+    "id": "command-line-utilities",
+    "category": "Command line utilities",
+    "slug": "command-line-utilities",
+    "description": "Applications to run at the command line.",
+    "created_at": "2017-01-17T19:13:05.112025+00:00",
+    "crates_cnt": 694
+  }, {
+    "id": "text-processing",
+    "category": "Text processing",
+    "slug": "text-processing",
+    "description": "Crates to deal with the complexities of human language when expressed in textual form.",
+    "created_at": "2017-01-17T19:13:05.112025+00:00",
+    "crates_cnt": 216
+  }, {
+    "id": "encoding",
+    "category": "Encoding",
+    "slug": "encoding",
+    "description": "Encoding and/or decoding data from one data format to another.",
+    "created_at": "2017-01-17T19:13:05.112025+00:00",
+    "crates_cnt": 338
+  }, {
+    "id": "multimedia::images",
+    "category": "Images",
+    "slug": "multimedia::images",
+    "description": "Crates that process or build images.\n",
+    "created_at": "2017-01-17T19:13:05.112025+00:00",
+    "crates_cnt": 77
+  }]
+}

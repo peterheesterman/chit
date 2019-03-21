@@ -1,0 +1,17 @@
+[package]
+name = "chit"
+version = "0.0.1"
+authors = ["Peter Heesterman <heesterman.peter@gmail.com>"]
+edition = "2018"
+
+description = "A tool for looking up details about crates without going to crates.io"
+repository = "https://github.com/peterheesterman/chit"
+readme = "./README.md"
+keywords = ["crates", "search", "who", "list"]
+categories = ["command-line-utilities"]
+license = "MIT"
+
+[dependencies]
+colored = "1.7"
+reqwest = "0.9"
+serde_json = "1.0"

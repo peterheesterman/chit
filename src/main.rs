@@ -5,6 +5,8 @@ use serde_json::Value;
 use std::env;
 use std::io::Read;
 
+mod format;
+
 fn main() {
     let args: Vec<String> = env::args().collect();
 
@@ -19,15 +21,9 @@ fn main() {
     }
 }
 
-fn n_dash(count: usize) -> String {
-    format!("{}", (0..count).map(|_| "-").collect::<String>())
-}
-
 fn chit(crate_name: String) {
-    let line = n_dash(crate_name.len()).red();
-    println!("{}", line);
-    println!("{}", crate_name.blue());
-    println!("{}", line);
+    let width = 40;
+    println!("{}", format::title_bar(width, &crate_name));
 
     let crate_endpoint = "https://crates.io/api/v1/crates";
     let crate_url = format!("{}/{}", crate_endpoint, crate_name);
@@ -55,13 +51,30 @@ fn chit(crate_name: String) {
     let crate_owners_json: Value = serde_json::from_str(&owners_body).expect("fail to serde parse for crate owners");
 
     // Owners
-    println!("Current owner: {}", crate_owners_json["users"][0]["name"].to_string());
+    println!("{}",
+        format::pad(
+            width,
+            &format!("Current owner: {}", crate_owners_json["users"][0]["name"].to_string())
+        )
+    );
 
     // Version
-    println!("Current version: {}", crate_json["crate"]["max_version"].to_string());
+    println!("{}",
+        format::pad(
+            width,
+            &format!("Current version: {}", crate_json["crate"]["max_version"].to_string())
+        )
+    );
 
     // Download count
     if let Some(download_count) = crate_json["crate"]["downloads"].as_i64() {
-        println!("Download count: {:?}", download_count);
+        println!("{}",
+            format::pad(
+                width,
+                &format!("Download count: {:?}", download_count)
+            )
+        );
     }
+
+    println!("{}", format::end_bar(width));
 }

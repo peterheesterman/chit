@@ -2,7 +2,6 @@
 # Todo
 
 ## Now
-  - better format for printing out result
   - re organise the code:
     - to more files
     - smaller functions

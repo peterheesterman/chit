@@ -6,6 +6,7 @@ use std::env;
 use std::io::Read;
 
 mod format;
+mod crates;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -21,15 +22,17 @@ fn main() {
     }
 }
 
+
+
 fn chit(crate_name: String) {
     let width = 40;
     println!("{}", format::title_bar(width, &crate_name));
 
-    let crate_url = format!("https://crates.io/api/v1/crates/{}", crate_name);
-    let crate_owners_url = format!("https://crates.io/api/v1/crates/{}/owners", crate_name);
+    let mut res = reqwest::get(&crates::url(&crate_name))
+                    .expect("fail to get crate");
 
-    let mut res = reqwest::get(&crate_url).expect("fail to get crate");
-    let mut owners_res = reqwest::get(&crate_owners_url).expect("fail to get owners");
+    let mut owners_res = reqwest::get(&crates::owners_url(&crate_name))
+                            .expect("fail to get owners");
 
     if res.status() != 200 && owners_res.status() != 200 {
         return println!(

@@ -25,9 +25,8 @@ fn chit(crate_name: String) {
     let width = 40;
     println!("{}", format::title_bar(width, &crate_name));
 
-    let crate_endpoint = "https://crates.io/api/v1/crates";
-    let crate_url = format!("{}/{}", crate_endpoint, crate_name);
-    let crate_owners_url = format!("{}/{}", crate_url, "owners");
+    let crate_url = format!("https://crates.io/api/v1/crates/{}", crate_name);
+    let crate_owners_url = format!("https://crates.io/api/v1/crates/{}/owners", crate_name);
 
     let mut res = reqwest::get(&crate_url).expect("fail to get crate");
     let mut owners_res = reqwest::get(&crate_owners_url).expect("fail to get owners");
@@ -42,37 +41,47 @@ fn chit(crate_name: String) {
 
     // Crate
     let mut body = String::new();
-    res.read_to_string(&mut body).expect("fail to read crate body");
+    res.read_to_string(&mut body)
+        .expect("fail to read crate body");
     let crate_json: Value = serde_json::from_str(&body).expect("fail to serde parse for crate");
 
     // Crate owners
     let mut owners_body = String::new();
-    owners_res.read_to_string(&mut owners_body).expect("fail to read crate owners body");
-    let crate_owners_json: Value = serde_json::from_str(&owners_body).expect("fail to serde parse for crate owners");
+    owners_res
+        .read_to_string(&mut owners_body)
+        .expect("fail to read crate owners body");
+    let crate_owners_json: Value =
+        serde_json::from_str(&owners_body).expect("fail to serde parse for crate owners");
 
     // Owners
-    println!("{}",
+    println!(
+        "{}",
         format::pad(
             width,
-            &format!("Current owner: {}", crate_owners_json["users"][0]["name"].to_string())
+            &format!(
+                "Current owner: {}",
+                crate_owners_json["users"][0]["name"].to_string()
+            )
         )
     );
 
     // Version
-    println!("{}",
+    println!(
+        "{}",
         format::pad(
             width,
-            &format!("Current version: {}", crate_json["crate"]["max_version"].to_string())
+            &format!(
+                "Current version: {}",
+                crate_json["crate"]["max_version"].to_string()
+            )
         )
     );
 
     // Download count
     if let Some(download_count) = crate_json["crate"]["downloads"].as_i64() {
-        println!("{}",
-            format::pad(
-                width,
-                &format!("Download count: {:?}", download_count)
-            )
+        println!(
+            "{}",
+            format::pad(width, &format!("Download count: {:?}", download_count))
         );
     }
 

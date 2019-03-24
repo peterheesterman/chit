@@ -23,9 +23,8 @@ fn main() {
 }
 
 
-
 fn chit(crate_name: String) {
-    let width = 40;
+    let width = format::get_width(&crate_name);
     println!("{}", format::title_bar(width, &crate_name));
 
     let mut res = reqwest::get(&crates::url(&crate_name))

@@ -41,6 +41,15 @@ pub fn end_bar(width: usize) -> String {
     )
 }
 
+pub fn get_width(crate_name: &str) -> usize {
+    let width = 40;
+    if crate_name.len() > width - 2 {
+      10 + crate_name.len()
+    } else {
+      width
+    }
+}
+
 // privates
 fn n_character(count: usize, character: &str) -> String {
     format!("{}", (0..count).map(|_| character).collect::<String>())

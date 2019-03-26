@@ -1,6 +1,12 @@
 
 # Change Log
 
+## 0.0.3 - Add other crates of owner
+ - Change the order thing apear in the chit
+ - Add details of the other crates of an owner
+ - better padded write abstraction
+ - update readme with an image
+
 ## 0.0.2 - Getting better
  - A change log
  - Better visuals 

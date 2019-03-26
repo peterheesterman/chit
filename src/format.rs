@@ -42,7 +42,7 @@ pub fn end_bar(width: usize) -> String {
 }
 
 pub fn get_width(crate_name: &str) -> usize {
-    let width = 40;
+    let width = 65;
     if crate_name.len() > width - 2 {
       10 + crate_name.len()
     } else {

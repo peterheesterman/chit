@@ -12,6 +12,11 @@ pub fn owners_url(crate_name: &str) -> String {
   format!("{}/{}/owners", ENDPOIONT, crate_name)
 }
 
+pub fn user_url(user_id: u64) -> String {
+  let per_page = 100;
+  format!("{}?page=1&per_page={}&sort=alpha&user_id={}", ENDPOIONT, per_page, user_id)
+}
+
 pub fn get(url: String) -> serde_json::value::Value {
     let mut res = reqwest::get(&url)
                     .expect("fail to get crate");

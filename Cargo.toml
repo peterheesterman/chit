@@ -4,7 +4,7 @@ version = "0.0.4"
 authors = ["Peter Heesterman <heesterman.peter@gmail.com>"]
 edition = "2018"
 
-description = "A tool for looking up details about crates without going to crates.io"
+description = "A tool for looking up details about rust crates without going to crates.io"
 repository = "https://github.com/peterheesterman/chit"
 readme = "./README.md"
 keywords = ["crates", "search", "who", "list"]

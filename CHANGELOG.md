@@ -1,6 +1,12 @@
 
 # Change Log
 
+## 0.0.4 - Better error handling
+ - Better error handling, less panic!
+ - Better date format
+ - Remove all the quotes in the output
+ - Update the readme 
+
 ## 0.0.3 - Add other crates of owner
  - Change the order thing apear in the chit
  - Add details of the other crates of an owner

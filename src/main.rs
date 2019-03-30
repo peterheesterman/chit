@@ -1,7 +1,6 @@
 extern crate reqwest;
 
 use colored::*;
-use serde_json::Value;
 use std::env;
 
 mod format;
@@ -28,41 +27,61 @@ fn padded_print(width: usize, message: String) {
 
 fn chit(crate_name: String) {
     let width = format::get_width(&crate_name);
-    println!("{}", format::title_bar(width, &crate_name));
+    println!("{} {}...", "Searching for".magenta(), &crate_name.blue());
 
-    let crate_json: Value = crates::get(crates::url(&crate_name));
-    let crate_owners_json: Value = crates::get(crates::owners_url(&crate_name));
-    
-    // Version
-    padded_print(width, format!(
-        "Lastest version: {} ({})",
-        crate_json["crate"]["max_version"].to_string(),
-        crate_json["crate"]["updated_at"].to_string()
-    ));
+    match crates::get(crates::url(&crate_name)) {
+        Some(crate_json) => {
+            // We found the crate
+            println!("{}", format::title_bar(width, &crate_name));
 
-    // Download count
-    if let Some(download_count) = crate_json["crate"]["downloads"].as_i64() {
-        padded_print(width, format!("Download count: {:?}", download_count));
-    }
+            let mut date = format::remove_quotes(crate_json["crate"]["updated_at"].to_string());
+            date.truncate(10);
+            // Version
+            padded_print(width, format!(
+                "Lastest version: {} ({})",
+                format::remove_quotes(crate_json["crate"]["max_version"].to_string()),
+                date
+            ));
 
-    // Owners
-    padded_print(width, String::new());
-    padded_print(width, format!(
-        "Written by {}, Other crates by the same owner:",
-        crate_owners_json["users"][0]["name"].to_string()
-    ));
-
-    // Other crates
-    if let Some(user_id) = crate_owners_json["users"][0]["id"].as_u64() {
-        let user_json: Value = crates::get(crates::user_url(user_id));
-        if let Some(array) = user_json["crates"].as_array() {
-            for thing in array {
-                padded_print(width, format!(
-                    "    {}",
-                    thing["id"].to_string()
-                ));
+            // Download count
+            if let Some(download_count) = crate_json["crate"]["downloads"].as_i64() {
+                padded_print(width, format!("Download count: {:?}", download_count));
             }
-        }
+        },
+        None => {
+            println!("{} {}", "Failed".red(), "to find that crate".magenta());
+            return
+        },
+    }
+    
+    match crates::get(crates::owners_url(&crate_name)) {
+        Some(crate_owners_json) => {
+            // Owners
+            padded_print(width, format!(
+                "Owner: {}",
+                format::remove_quotes(crate_owners_json["users"][0]["name"].to_string())
+            ));
+
+            padded_print(width, String::new());
+            padded_print(width, String::from("Crates by owner:"));
+
+            // Crates by owner
+            if let Some(user_id) = crate_owners_json["users"][0]["id"].as_u64() {
+                if let Some(user_json) = crates::get(crates::user_url(user_id)) {
+                    if let Some(array) = user_json["crates"].as_array() {
+                        for thing in array {
+                            padded_print(width, format!(
+                                "    {}",
+                                format::remove_quotes(thing["id"].to_string())
+                            ));
+                        }
+                    }
+                }
+            }
+        },
+        None => {
+            println!("Failed to get crate owner details")
+        },
     }
 
     println!("{}", format::end_bar(width));

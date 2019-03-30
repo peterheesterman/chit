@@ -7,7 +7,6 @@ const BOTTOM_RIGHT: &str = "┘";
 const HORIZONTAL: &str = "─";
 const SPACE: &str = " ";
 const VERTICAL: &str = "│";
-//const BACKSPACE: &str = "\u{8}";
 
 pub fn title_bar(width: usize, title: &str) -> String {
     let fill = (width - title.len()) - 2;
@@ -42,12 +41,19 @@ pub fn end_bar(width: usize) -> String {
 }
 
 pub fn get_width(crate_name: &str) -> usize {
-    let width = 65;
+    let width = 45;
     if crate_name.len() > width - 2 {
       10 + crate_name.len()
     } else {
       width
     }
+}
+
+pub fn remove_quotes(value: String) -> String {
+    let mut string = value.clone();
+    string.remove(0);
+    string.pop();
+    string
 }
 
 // privates

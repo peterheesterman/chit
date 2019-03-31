@@ -20,7 +20,12 @@ pub fn title_bar(width: usize, title: &str) -> String {
 }
 
 pub fn pad(width: usize, content: &str) -> String {
-    let fill = (width - content.len()) - 2;
+    let fill = if width < content.len() + 10 {
+        0
+    } else {
+        (width - content.len()) - 2
+    };
+
     format!(
         "{}{}{}{}",
         VERTICAL.magenta(),
@@ -43,9 +48,9 @@ pub fn end_bar(width: usize) -> String {
 pub fn get_width(crate_name: &str) -> usize {
     let width = 45;
     if crate_name.len() > width - 2 {
-      10 + crate_name.len()
+        10 + crate_name.len()
     } else {
-      width
+        width
     }
 }
 
@@ -54,6 +59,15 @@ pub fn remove_quotes(value: String) -> String {
     string.remove(0);
     string.pop();
     string
+}
+
+pub fn print_rating(width: usize, rating: usize) {
+    let stars = n_character(rating, "🌟 ");
+    let star_rating = format!("Rating: {}", stars);
+
+    if rating > 0 && rating < 6 {
+        println!("{}", pad(width + rating * 3, &star_rating))
+    }
 }
 
 // privates

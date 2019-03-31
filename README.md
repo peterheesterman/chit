@@ -10,11 +10,13 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
 
 ### Use
 
-`chit serde`
+`chit hex-buffer-serde`
 
-<img src="https://github.com/peterheesterman/chit/blob/master/readme-images/chit_serde.png?raw=true" width="258"  height="315"/>
+<img src="https://github.com/peterheesterman/chit/blob/master/readme-images/chit.png?raw=true" width="390"  height="238"/>
 
 ### Chit should help answer these questions someday:
+  - Who wrote this crate? What else did they write?
+  - How old is this crate?
   - What versions are there? When did they come out?
   - What are the downloads over time?
   - Should i use this crate? 

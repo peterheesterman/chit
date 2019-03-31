@@ -1,6 +1,11 @@
 
 # Change Log
 
+## 0.0.5 - All the versions + Star ratings
+ - Print all the versions of a crate
+ - Print the recent downloads of a crate
+ - Print the star rating based on recent downloads
+
 ## 0.0.4 - Better error handling
  - Better error handling, less panic!
  - Better date format

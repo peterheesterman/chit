@@ -19,6 +19,10 @@ pub fn title_bar(width: usize, title: &str) -> String {
     )
 }
 
+pub fn padded_print(width: usize, message: String) {
+    println!("{}", pad(width, &message));
+}
+
 pub fn pad(width: usize, content: &str) -> String {
     let fill = if width < content.len() + 10 {
         0

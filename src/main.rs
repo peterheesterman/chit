@@ -1,5 +1,4 @@
-extern crate reqwest;
-
+use clap::{App, Arg, SubCommand};
 use colored::*;
 use std::env;
 
@@ -8,22 +7,79 @@ mod extract;
 mod format;
 
 fn main() {
+    // subcommands
+    let help = "help"; // from clap
+    let versions = "versions";
+    let owners = "owners";
+
+    let reserved = vec![help, versions, owners, "-h", "--help", "-v", "--version"];
+
+    // Keep it simple
     let args: Vec<String> = env::args().collect();
 
     if args.len() == 2 {
-        chit(args[1].to_string());
+        let crate_name = args[1].clone();
+        if !reserved.contains(&&crate_name.as_str()) {
+            chit(crate_name.to_string());
+            return;
+        }
+    }
+
+    // Next level
+    let semver = "0.1.0";
+    let author = "Peter Heesterman <heesterman.peter@gmail.com>";
+
+    // Args
+    let crate_arg_name = "crate";
+    let crate_arg = Arg::with_name(&crate_arg_name)
+        .short("c")
+        .long("crate")
+        .help("The name of the crate")
+        .required(false)
+        .takes_value(true);
+
+    let matches = App::new("chit")
+        .version(semver)
+        .author(author)
+        .about("Easily looking up details about rust crates")
+        .arg(crate_arg.clone())
+        .subcommand(
+            SubCommand::with_name(owners)
+                .about("Find out details about a crate owners")
+                .version(semver)
+                .author(author)
+                .arg(crate_arg.clone()),
+        )
+        .subcommand(
+            SubCommand::with_name(versions)
+                .about("Find out details about a crate versions")
+                .version(semver)
+                .author(author)
+                .arg(crate_arg),
+        )
+        .get_matches();
+
+    if let Some(owners) = matches.subcommand_matches("owners") {
+        if let Some(crate_name) = owners.value_of(crate_arg_name) {
+            chit_owners(crate_name.to_string())
+        } else {
+            println!("{}", "No crate supplied".yellow());
+        };
+    } else if let Some(versions) = matches.subcommand_matches("versions") {
+        if let Some(crate_name) = versions.value_of(crate_arg_name) {
+            chit_versions(crate_name.to_string())
+        } else {
+            println!("{}", "No crate supplied".yellow());
+        };
+    } else if let Some(crate_name) = matches.value_of(crate_arg_name) {
+        chit(crate_name.to_string())
     } else {
         println!(
-            "{}{}",
-            "Chit currently only takes the name of a crate. e.g. ".yellow(),
-            "chit steg".blue(),
+            "{} {}",
+            "It looks like there was an issue, try: ".yellow(),
+            "chit --help".blue()
         );
     }
-}
-
-// This should use a closure
-fn padded_print(width: usize, message: String) {
-    println!("{}", format::pad(width, &message));
 }
 
 fn chit(crate_name: String) {
@@ -40,16 +96,94 @@ fn chit(crate_name: String) {
 
                 // Download count
                 if let Some(download_count) = fields.downloads {
-                    padded_print(width, format!("Total downloads: {}", download_count));
+                    format::padded_print(width, format!("Total downloads: {}", download_count));
                 }
 
                 if let Some(recent_downloads) = fields.recent_downloads {
-                    padded_print(width, format!("Recent downloads: {}", recent_downloads));
+                    format::padded_print(width, format!("Recent downloads: {}", recent_downloads));
                 }
 
-                padded_print(width, String::from("Versions:"));
+                let recent_version = fields.versions[0].clone();
+                format::padded_print(width, 
+                    format!("Latest version: {} ({})",
+                        format::remove_quotes(recent_version.semver),
+                        recent_version.date
+                    )
+                );
+            }
+        }
+        None => {
+            println!("{} {}", "Failed".red(), "to find that crate".magenta());
+            return;
+        }
+    }
+
+    match crates::get(crates::owners_url(&crate_name)) {
+        Some(crate_owners_json) => {
+            // Owners
+            format::padded_print(
+                width,
+                format!(
+                    "Owner: {}",
+                    format::remove_quotes(crate_owners_json["users"][0]["name"].to_string())
+                ),
+            );
+        }
+        None => println!("Failed to get crate owner details"),
+    }
+
+    println!("{}", format::end_bar(width));
+}
+
+fn chit_owners(crate_name: String) {
+    let width = format::get_width(&crate_name);
+    println!("{} {}...", "Searching for".magenta(), &crate_name.blue());
+
+    match crates::get(crates::owners_url(&crate_name)) {
+        Some(crate_owners_json) => {
+            println!("{}", format::title_bar(width, &crate_name));
+
+            // Owners
+            format::padded_print(
+                width,
+                format!(
+                    "Crates by {}:",
+                    format::remove_quotes(crate_owners_json["users"][0]["name"].to_string())
+                ),
+            );
+
+            // Crates by owner
+            if let Some(user_id) = crate_owners_json["users"][0]["id"].as_u64() {
+                if let Some(user_json) = crates::get(crates::user_url(user_id)) {
+                    if let Some(array) = user_json["crates"].as_array() {
+                        for thing in array {
+                            format::padded_print(
+                                width,
+                                format!("    {}", format::remove_quotes(thing["id"].to_string())),
+                            );
+                        }
+                    }
+                }
+            }
+        }
+        None => println!("Failed to get crate owner details"),
+    }
+
+    println!("{}", format::end_bar(width));
+}
+
+fn chit_versions(crate_name: String) {
+    let width = format::get_width(&crate_name);
+    println!("{} {}...", "Searching for".magenta(), &crate_name.blue());
+
+    match crates::get(crates::url(&crate_name)) {
+        Some(crate_json) => {
+            if let Some(fields) = extract::crate_fields(crate_json) {
+                println!("{}", format::title_bar(width, &crate_name));
+
+                format::padded_print(width, String::from("Versions:"));
                 for version in fields.versions {
-                    padded_print(
+                    format::padded_print(
                         width,
                         format!(
                             "    {} ({})",
@@ -64,37 +198,6 @@ fn chit(crate_name: String) {
             println!("{} {}", "Failed".red(), "to find that crate".magenta());
             return;
         }
-    }
-
-    match crates::get(crates::owners_url(&crate_name)) {
-        Some(crate_owners_json) => {
-            // Owners
-            padded_print(
-                width,
-                format!(
-                    "Owner: {}",
-                    format::remove_quotes(crate_owners_json["users"][0]["name"].to_string())
-                ),
-            );
-
-            padded_print(width, String::new());
-            padded_print(width, String::from("Crates by owner:"));
-
-            // Crates by owner
-            if let Some(user_id) = crate_owners_json["users"][0]["id"].as_u64() {
-                if let Some(user_json) = crates::get(crates::user_url(user_id)) {
-                    if let Some(array) = user_json["crates"].as_array() {
-                        for thing in array {
-                            padded_print(
-                                width,
-                                format!("    {}", format::remove_quotes(thing["id"].to_string())),
-                            );
-                        }
-                    }
-                }
-            }
-        }
-        None => println!("Failed to get crate owner details"),
     }
 
     println!("{}", format::end_bar(width));

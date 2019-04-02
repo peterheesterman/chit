@@ -1,6 +1,13 @@
 
 # Change Log
 
+## 0.1.0 - Clapping my self silly
+ - Use the command line argument parser (clap) crate - move the `owners` and `versions` code to there own subcommands
+ - Introduce a CODE_OF_CONDUCT.md
+ - Introduce a CONTRIBUTING.md
+ - Add a pull request template
+ - Add LICENSE.md
+
 ## 0.0.5 - All the versions + Star ratings
  - Print all the versions of a crate
  - Print the recent downloads of a crate

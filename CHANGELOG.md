@@ -1,6 +1,10 @@
 
 # Change Log
 
+## 0.1.1 - Great `crate help in terminal`
+ - Make it clear what chit stands for in the docs
+ - Add bug and feature issue templates
+
 ## 0.1.0 - Clapping my self silly
  - Use the command line argument parser (clap) crate - move the `owners` and `versions` code to there own subcommands
  - Introduce a CODE_OF_CONDUCT.md

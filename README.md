@@ -1,4 +1,4 @@
-## Chit
+## Chit: Crate help in terminal
 
 A tool for looking up details about rust crates without going to crates.io.
 

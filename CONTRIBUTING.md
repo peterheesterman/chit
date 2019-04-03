@@ -1,4 +1,4 @@
-Contributing to Chit
+Contributing to Chit: Crate help in terminal
 ==
 
 Thanks for taking the time to contribute to Chit! 🎉 Chit welcomes pull requests from everyone and anyone.

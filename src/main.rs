@@ -110,6 +110,10 @@ fn chit(crate_name: String) {
                         recent_version.date
                     )
                 );
+
+                if let Some(size) = recent_version.size_in_bytes {
+                    format::padded_print(width, format!("Crate size: {} kB", (size as f64 / 1000_f64).round()));
+                }
             }
         }
         None => {
@@ -183,14 +187,26 @@ fn chit_versions(crate_name: String) {
 
                 format::padded_print(width, String::from("Versions:"));
                 for version in fields.versions {
-                    format::padded_print(
-                        width,
-                        format!(
-                            "    {} ({})",
-                            format::remove_quotes(version.semver),
-                            version.date
-                        ),
-                    );
+                    if let Some(size) = version.size_in_bytes {
+                        format::padded_print(
+                            width,
+                            format!(
+                                "    {} | {} | {} kB",
+                                format::remove_quotes(version.semver),
+                                version.date,
+                                (size as f64 / 1000_f64).round()
+                            )
+                        );
+                    } else {
+                        format::padded_print(
+                            width,
+                            format!(
+                                "    {} | {}",
+                                format::remove_quotes(version.semver),
+                                version.date
+                            )
+                        );
+                    }
                 }
             }
         }

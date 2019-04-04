@@ -124,13 +124,21 @@ fn chit(crate_name: String) {
 
     match crates::get(crates::owners_url(&crate_name)) {
         Some(crate_owners_json) => {
+            let owners_names: Vec<String> = crate_owners_json["users"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .filter(|json| json["kind"] == "user")
+                .map(|json| format::remove_quotes(json["name"].to_string()))
+                .collect();
+            let multiple = owners_names.len() > 1;
+
+            let owners_names = owners_names.join(", ");
+
             // Owners
             format::padded_print(
                 width,
-                format!(
-                    "Owner: {}",
-                    format::remove_quotes(crate_owners_json["users"][0]["name"].to_string())
-                ),
+                format!("Owner{}: {}", if multiple { "s" } else { "" }, owners_names),
             );
         }
         None => println!("Failed to get crate owner details"),
@@ -147,24 +155,34 @@ fn chit_owners(crate_name: String) {
         Some(crate_owners_json) => {
             println!("{}", format::title_bar(width, &crate_name));
 
-            // Owners
-            format::padded_print(
-                width,
-                format!(
-                    "Crates by {}:",
-                    format::remove_quotes(crate_owners_json["users"][0]["name"].to_string())
-                ),
-            );
+            for user_json in crate_owners_json["users"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .filter(|json| json["kind"] == "user")
+            {
+                // Owner
+                format::padded_print(
+                    width,
+                    format!(
+                        "Crates by {}:",
+                            format::remove_quotes(user_json["name"].to_string())
+                    ),
+                );
 
-            // Crates by owner
-            if let Some(user_id) = crate_owners_json["users"][0]["id"].as_u64() {
-                if let Some(user_json) = crates::get(crates::user_url(user_id)) {
-                    if let Some(array) = user_json["crates"].as_array() {
-                        for thing in array {
-                            format::padded_print(
-                                width,
-                                format!("    {}", format::remove_quotes(thing["id"].to_string())),
-                            );
+                // Crates by owner
+                if let Some(user_id) = user_json["id"].as_u64() {
+                    if let Some(user_json) = crates::get(crates::user_url(user_id)) {
+                        if let Some(array) = user_json["crates"].as_array() {
+                            for thing in array {
+                                format::padded_print(
+                                    width,
+                                    format!(
+                                        "    {}",
+                                        format::remove_quotes(thing["id"].to_string())
+                                    ),
+                                );
+                            }
                         }
                     }
                 }

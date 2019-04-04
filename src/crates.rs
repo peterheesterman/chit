@@ -2,21 +2,21 @@ extern crate reqwest;
 
 use std::io::Read;
 
-const ENDPOIONT: &str = "https://crates.io/api/v1/crates";
+const ENDPOINT: &str = "https://crates.io/api/v1/crates";
 
 pub fn url(crate_name: &str) -> String {
-    format!("{}/{}", ENDPOIONT, crate_name)
+    format!("{}/{}", ENDPOINT, crate_name)
 }
 
 pub fn owners_url(crate_name: &str) -> String {
-    format!("{}/{}/owners", ENDPOIONT, crate_name)
+    format!("{}/{}/owners", ENDPOINT, crate_name)
 }
 
 pub fn user_url(user_id: u64) -> String {
     let per_page = 100;
     format!(
         "{}?page=1&per_page={}&sort=alpha&user_id={}",
-        ENDPOIONT, per_page, user_id
+        ENDPOINT, per_page, user_id
     )
 }
 
@@ -24,9 +24,6 @@ pub fn get(url: String) -> Option<serde_json::value::Value> {
     let req = reqwest::get(&url);
 
     match req {
-        Err(e) => {
-            panic!("Error: {:?}", e);
-        }
         Ok(mut res) => {
             if res.status() == 200 {
                 let mut res_body = String::new();
@@ -37,6 +34,9 @@ pub fn get(url: String) -> Option<serde_json::value::Value> {
             } else {
                 None
             }
+        }
+        Err(e) => {
+            panic!("Error: {:?}", e);
         }
     }
 }

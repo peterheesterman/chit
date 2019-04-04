@@ -12,7 +12,7 @@ fn main() {
     let versions = "versions";
     let owners = "owners";
 
-    let reserved = vec![help, versions, owners, "-h", "--help", "-v", "--version"];
+    let reserved = vec![help, versions, owners, "-h", "--help", "-V", "--version"];
 
     // Keep it simple
     let args: Vec<String> = env::args().collect();

@@ -1,6 +1,10 @@
 
 # Change Log
 
+## 0.1.2 - Bigger is better?
+ - Include the size of the current version
+ - Include the size of previous versions
+
 ## 0.1.1 - Great `crate help in terminal`
  - Make it clear what chit stands for in the docs
  - Add bug and feature issue templates

@@ -26,7 +26,7 @@ fn main() {
     }
 
     // Next level
-    let semver = "0.1.2";
+    let semver = "0.1.3";
     let author = "Peter Heesterman <heesterman.peter@gmail.com>";
 
     // Args

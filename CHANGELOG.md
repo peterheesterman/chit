@@ -1,6 +1,10 @@
 
 # Change Log
 
+## 0.1.3 - nanocryk & joseluis you rule!
+ - Multi owner support - Shoutout to nanocryk!
+ - Speed gains and making -V arg work properly - Shoutout to joseluis! 
+
 ## 0.1.2 - Bigger is better?
  - Include the size of the current version
  - Include the size of previous versions

@@ -12,13 +12,17 @@ pub struct Crate {
     pub downloads: Option<i64>,
     pub versions: Vec<Version>,
     pub recent_downloads: Option<i64>,
+    pub repository: String,
+    pub documentation: String,
 }
 
 pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
     let name = json["crate"]["name"].to_string();
     let downloads = json["crate"]["downloads"].as_i64();
     let recent_downloads = json["crate"]["recent_downloads"].as_i64();
-
+    let repository = json["crate"]["repository"].to_string();
+    let documentation = json["crate"]["documentation"].to_string();
+    
     if let Some(versions) = json["versions"].as_array() {
         let versions: Vec<Version> = versions
             .into_iter()
@@ -39,6 +43,8 @@ pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
             downloads,
             versions,
             recent_downloads,
+            repository,
+            documentation,
         })
     } else {
         None

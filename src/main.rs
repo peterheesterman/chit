@@ -83,12 +83,22 @@ fn main() {
 }
 
 fn chit(crate_name: String) {
-    let width = format::get_width();
+    let mut width = format::get_width();
     println!("{} {}...", "Searching for".magenta(), &crate_name.blue());
 
     match crates::get(crates::url(&crate_name)) {
         Some(crate_json) => {
             if let Some(fields) = extract::crate_fields(crate_json) {
+
+                // Asume repository is the longest field
+                let repository_details = format!("Repository: {}",
+                    format::remove_quotes(fields.repository.clone())
+                );
+
+                if repository_details.len() > width {
+                    width = repository_details.len();
+                }
+
                 println!("{}", format::title_bar(width, &crate_name));
 
                 let rating = extract::calculate_rating(fields.clone());
@@ -109,6 +119,22 @@ fn chit(crate_name: String) {
                         format::remove_quotes(recent_version.semver),
                         recent_version.date
                     )
+                );
+
+                if fields.documentation == "null" {
+                    format::print(
+                        format!("Docs: None specified in Cargo.toml")
+                    );
+                } else {
+                    format::print(
+                        format!("Docs: {}", format::remove_quotes(fields.documentation))
+                    );
+                }
+
+                format::print(repository_details);
+
+                format::print(
+                    format!("Crates.io: https://crates.io/crates/{}", &crate_name)
                 );
 
                 if let Some(size) = recent_version.size_in_bytes {

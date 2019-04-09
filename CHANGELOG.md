@@ -1,9 +1,9 @@
 
 # Change Log
 
-## 0.1.4 - 
- - 
- - 
+## 0.1.4 - A link to the ... docs
+ - Add external resource links for docs, crates.io and repo (Thanks to lnicola for the suggestion!)
+ - Fix border alignment is not an issue
 
 ## 0.1.3 - nanocryk & joseluis you rule!
  - Multi owner support - Shoutout to nanocryk!

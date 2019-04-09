@@ -14,7 +14,7 @@ pub fn title_bar(width: usize, title: &str) -> String {
 }
 
 pub fn print(message: String) {
-    println!("{}",  &message);
+    println!("{}",  &message.to_string().blue());
 }
 
 pub fn end_bar(width: usize) -> String {
@@ -43,7 +43,7 @@ pub fn print_rating(rating: usize) {
     let star_rating = format!("Rating: {}", stars);
 
     if rating > 0 && rating < 6 {
-        println!("{}", &star_rating)
+        println!("{}", &star_rating.to_string().blue());
     }
 }
 

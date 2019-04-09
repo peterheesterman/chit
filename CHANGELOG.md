@@ -1,6 +1,10 @@
 
 # Change Log
 
+## 0.1.4 - 
+ - 
+ - 
+
 ## 0.1.3 - nanocryk & joseluis you rule!
  - Multi owner support - Shoutout to nanocryk!
  - Speed gains and making -V arg work properly - Shoutout to joseluis! 

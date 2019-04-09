@@ -83,7 +83,7 @@ fn main() {
 }
 
 fn chit(crate_name: String) {
-    let width = format::get_width(&crate_name);
+    let width = format::get_width();
     println!("{} {}...", "Searching for".magenta(), &crate_name.blue());
 
     match crates::get(crates::url(&crate_name)) {
@@ -92,19 +92,19 @@ fn chit(crate_name: String) {
                 println!("{}", format::title_bar(width, &crate_name));
 
                 let rating = extract::calculate_rating(fields.clone());
-                format::print_rating(width, rating);
+                format::print_rating(rating);
 
                 // Download count
                 if let Some(download_count) = fields.downloads {
-                    format::padded_print(width, format!("Total downloads: {}", download_count));
+                    format::print(format!("Total downloads: {}", download_count));
                 }
 
                 if let Some(recent_downloads) = fields.recent_downloads {
-                    format::padded_print(width, format!("Recent downloads: {}", recent_downloads));
+                    format::print(format!("Recent downloads: {}", recent_downloads));
                 }
 
                 let recent_version = fields.versions[0].clone();
-                format::padded_print(width, 
+                format::print(
                     format!("Latest version: {} ({})",
                         format::remove_quotes(recent_version.semver),
                         recent_version.date
@@ -112,7 +112,7 @@ fn chit(crate_name: String) {
                 );
 
                 if let Some(size) = recent_version.size_in_bytes {
-                    format::padded_print(width, format!("Crate size: {} kB", (size as f64 / 1000_f64).round()));
+                    format::print(format!("Crate size: {} kB", (size as f64 / 1000_f64).round()));
                 }
             }
         }
@@ -136,8 +136,7 @@ fn chit(crate_name: String) {
             let owners_names = owners_names.join(", ");
 
             // Owners
-            format::padded_print(
-                width,
+            format::print(
                 format!("Owner{}: {}", if multiple { "s" } else { "" }, owners_names),
             );
         }
@@ -148,7 +147,7 @@ fn chit(crate_name: String) {
 }
 
 fn chit_owners(crate_name: String) {
-    let width = format::get_width(&crate_name);
+    let width = format::get_width();
     println!("{} {}...", "Searching for".magenta(), &crate_name.blue());
 
     match crates::get(crates::owners_url(&crate_name)) {
@@ -162,8 +161,7 @@ fn chit_owners(crate_name: String) {
                 .filter(|json| json["kind"] == "user")
             {
                 // Owner
-                format::padded_print(
-                    width,
+                format::print(
                     format!(
                         "Crates by {}:",
                             format::remove_quotes(user_json["name"].to_string())
@@ -175,8 +173,7 @@ fn chit_owners(crate_name: String) {
                     if let Some(user_json) = crates::get(crates::user_url(user_id)) {
                         if let Some(array) = user_json["crates"].as_array() {
                             for thing in array {
-                                format::padded_print(
-                                    width,
+                                format::print(
                                     format!(
                                         "    {}",
                                         format::remove_quotes(thing["id"].to_string())
@@ -195,7 +192,7 @@ fn chit_owners(crate_name: String) {
 }
 
 fn chit_versions(crate_name: String) {
-    let width = format::get_width(&crate_name);
+    let width = format::get_width();
     println!("{} {}...", "Searching for".magenta(), &crate_name.blue());
 
     match crates::get(crates::url(&crate_name)) {
@@ -203,11 +200,10 @@ fn chit_versions(crate_name: String) {
             if let Some(fields) = extract::crate_fields(crate_json) {
                 println!("{}", format::title_bar(width, &crate_name));
 
-                format::padded_print(width, String::from("Versions:"));
+                format::print(String::from("Versions:"));
                 for version in fields.versions {
                     if let Some(size) = version.size_in_bytes {
-                        format::padded_print(
-                            width,
+                        format::print(
                             format!(
                                 "    {} | {} | {} kB",
                                 format::remove_quotes(version.semver),
@@ -216,8 +212,7 @@ fn chit_versions(crate_name: String) {
                             )
                         );
                     } else {
-                        format::padded_print(
-                            width,
+                        format::print(
                             format!(
                                 "    {} | {}",
                                 format::remove_quotes(version.semver),

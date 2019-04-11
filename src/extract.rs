@@ -4,6 +4,7 @@ pub struct Version {
     pub date: String,
     pub downloads: Option<i64>,
     pub size_in_bytes: Option<i64>,
+    pub license: String,
 }
 
 #[derive(Debug, Clone)]
@@ -34,6 +35,7 @@ pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
                     semver: version["num"].to_string(),
                     downloads: version["downloads"].as_i64(),
                     size_in_bytes: version["crate_size"].as_i64(),
+                    license: version["license"].to_string(),
                 };
             })
             .collect();

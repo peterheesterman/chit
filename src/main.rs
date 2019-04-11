@@ -137,6 +137,10 @@ fn chit(crate_name: String) {
                     format!("Crates.io: https://crates.io/crates/{}", &crate_name)
                 );
 
+                format::print(
+                    format!("License: {}", format::remove_quotes(recent_version.license))
+                );
+
                 if let Some(size) = recent_version.size_in_bytes {
                     format::print(format!("Crate size: {} kB", (size as f64 / 1000_f64).round()));
                 }
@@ -231,10 +235,11 @@ fn chit_versions(crate_name: String) {
                     if let Some(size) = version.size_in_bytes {
                         format::print(
                             format!(
-                                "    {} | {} | {} kB",
+                                "    {}  ({}) | {} | {} kB",
                                 format::remove_quotes(version.semver),
+                                format::remove_quotes(version.license),
                                 version.date,
-                                (size as f64 / 1000_f64).round()
+                                (size as f64 / 1000_f64).round(),
                             )
                         );
                     } else {

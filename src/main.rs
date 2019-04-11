@@ -24,7 +24,7 @@ fn main() {
         }
     }
 
-    // Next level
+    // Meta
     let semver = meta::get_version();
     let author = meta::get_author();
 

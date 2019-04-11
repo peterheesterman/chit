@@ -2,6 +2,7 @@ use clap::{App, Arg, SubCommand};
 use colored::*;
 use std::env;
 
+mod meta;
 mod crates;
 mod extract;
 mod format;
@@ -12,13 +13,11 @@ fn main() {
     let versions = "versions";
     let owners = "owners";
 
-    let reserved = vec![help, versions, owners, "-h", "--help", "-V", "--version"];
-
     // Keep it simple
     let args: Vec<String> = env::args().collect();
-
     if args.len() == 2 {
         let crate_name = args[1].clone();
+        let reserved = vec![help, versions, owners, "-h", "--help", "-V", "--version"];
         if !reserved.contains(&&crate_name.as_str()) {
             chit(crate_name.to_string());
             return;
@@ -26,8 +25,8 @@ fn main() {
     }
 
     // Next level
-    let semver = "0.1.4";
-    let author = "Peter Heesterman <heesterman.peter@gmail.com>";
+    let semver = meta::get_version();
+    let author = meta::get_author();
 
     // Args
     let crate_arg_name = "crate";

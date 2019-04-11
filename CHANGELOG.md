@@ -1,6 +1,9 @@
 
 # Change Log
 
+## 0.1.5 - A license to ... show
+ - Include the software license for the shown crate
+
 ## 0.1.4 - A link to the ... docs
  - Add external resource links for docs, crates.io and repo (Thanks to lnicola for the suggestion!)
  - Fix border alignment is not an issue

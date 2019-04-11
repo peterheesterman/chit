@@ -13,7 +13,7 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
 
 `chit hex-buffer-serde` OR `chit --crate=hex-buffer-serde`
 
-<img src="https://github.com/peterheesterman/chit/blob/master/readme-images/chit.png?raw=true" width="461"  height="203"/>
+<img src="https://github.com/peterheesterman/chit/blob/master/readme-images/chit.png?raw=true" width="461"  height="221"/>
 
 `chit versions --crate=hex-buffer-serde`
 

@@ -48,6 +48,6 @@ pub fn print_rating(rating: usize) {
 }
 
 // privates
-fn n_character(count: usize, character: &str) -> String {
-    format!("{}", (0..count).map(|_| character).collect::<String>())
+fn n_character(count: usize, string: &str) -> String {
+    string.repeat(count)
 }

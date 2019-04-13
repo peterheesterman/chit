@@ -1,6 +1,9 @@
 
 # Change Log
 
+## 0.1.6 - 
+ - Refactor all the actions to their own file
+
 ## 0.1.5 - A license to ... show
  - Include the software license for the shown crate
 

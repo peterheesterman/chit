@@ -1,3 +1,5 @@
+use super::format;
+
 #[derive(Debug, Clone)]
 pub struct Version {
     pub semver: String,
@@ -18,12 +20,18 @@ pub struct Crate {
 }
 
 pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
-    let name = json["crate"]["name"].to_string();
+    let name = format::remove_quotes(json["crate"]["name"].to_string());
     let downloads = json["crate"]["downloads"].as_i64();
     let recent_downloads = json["crate"]["recent_downloads"].as_i64();
-    let repository = json["crate"]["repository"].to_string();
+    let repository = format::remove_quotes(json["crate"]["repository"].to_string());
     let documentation = json["crate"]["documentation"].to_string();
-    
+
+    let documentation = if documentation == "null" {
+        format!("Docs: None specified in Cargo.toml")
+    } else {
+        format!("Docs: {}", format::remove_quotes(documentation))
+    };
+
     if let Some(versions) = json["versions"].as_array() {
         let versions: Vec<Version> = versions
             .into_iter()
@@ -32,13 +40,13 @@ pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
                 date.truncate(10);
                 return Version {
                     date,
-                    semver: version["num"].to_string(),
+                    semver: format::remove_quotes(version["num"].to_string()),
                     downloads: version["downloads"].as_i64(),
                     size_in_bytes: version["crate_size"].as_i64(),
-                    license: version["license"].to_string(),
+                    license: format::remove_quotes(version["license"].to_string()),
                 };
             })
-            .collect();
+        .collect();
 
         Some(Crate {
             name,
@@ -53,7 +61,7 @@ pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
     }
 }
 
-pub fn calculate_rating(crate_info: Crate) -> usize {
+pub fn calculate_rating(crate_info: &Crate) -> usize {
     let five = 20000;
     let four = 5000;
     let three = 1000;

@@ -19,8 +19,8 @@ pub fn print_versions(crate_name: String) {
                         format::print(
                             format!(
                                 "    {}  ({}) | {} | {} kB",
-                                format::remove_quotes(version.semver),
-                                format::remove_quotes(version.license),
+                                version.semver,
+                                version.license,
                                 version.date,
                                 (size as f64 / 1000_f64).round(),
                             )
@@ -29,7 +29,7 @@ pub fn print_versions(crate_name: String) {
                         format::print(
                             format!(
                                 "    {} | {}",
-                                format::remove_quotes(version.semver),
+                                version.semver,
                                 version.date
                             )
                         );

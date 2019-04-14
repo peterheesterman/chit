@@ -14,7 +14,7 @@ pub fn print_details(crate_name: String) {
 
                 // Asume repository is the longest field
                 let repository_details = format!("Repository: {}",
-                    format::remove_quotes(fields.repository.clone())
+                    &fields.repository
                 );
 
                 if repository_details.len() > width {
@@ -23,7 +23,7 @@ pub fn print_details(crate_name: String) {
 
                 println!("{}", format::title_bar(width, &crate_name));
 
-                let rating = extract::calculate_rating(fields.clone());
+                let rating = extract::calculate_rating(&fields);
                 format::print_rating(rating);
 
                 // Download count
@@ -35,23 +35,17 @@ pub fn print_details(crate_name: String) {
                     format::print(format!("Recent downloads: {}", recent_downloads));
                 }
 
-                let recent_version = fields.versions[0].clone();
+                let recent_version = &fields.versions[0];
                 format::print(
                     format!("Latest version: {} ({})",
-                        format::remove_quotes(recent_version.semver),
+                        recent_version.semver,
                         recent_version.date
                     )
                 );
 
-                if fields.documentation == "null" {
-                    format::print(
-                        format!("Docs: None specified in Cargo.toml")
-                    );
-                } else {
-                    format::print(
-                        format!("Docs: {}", format::remove_quotes(fields.documentation))
-                    );
-                }
+                format::print(
+                    format!("Docs: {}", fields.documentation)
+                );
 
                 format::print(repository_details);
 
@@ -60,7 +54,7 @@ pub fn print_details(crate_name: String) {
                 );
 
                 format::print(
-                    format!("License: {}", format::remove_quotes(recent_version.license))
+                    format!("License: {}", recent_version.license)
                 );
 
                 if let Some(size) = recent_version.size_in_bytes {

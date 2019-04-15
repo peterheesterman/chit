@@ -3,12 +3,7 @@ use colored::*;
 use std::env;
 
 mod meta;
-mod crates;
-mod format;
-mod extract;
-mod details;
-mod owners;
-mod versions;
+mod chit;
 
 fn main() {
     // subcommands
@@ -22,7 +17,7 @@ fn main() {
         let crate_name = args[1].clone();
         let reserved = vec![help, versions, owners, "-h", "--help", "-V", "--version"];
         if !reserved.contains(&&crate_name.as_str()) {
-            details::print_details(crate_name.to_string());
+            chit::details::print_details(crate_name.to_string());
             return;
         }
     }
@@ -64,18 +59,18 @@ fn main() {
     // Actions
     if let Some(owners) = matches.subcommand_matches("owners") {
         if let Some(crate_name) = owners.value_of(crate_arg_name) {
-           owners::print_owners(crate_name.to_string())
+           chit::owners::print_owners(crate_name.to_string())
         } else {
             println!("{}", "No crate supplied".yellow());
         };
     } else if let Some(versions) = matches.subcommand_matches("versions") {
         if let Some(crate_name) = versions.value_of(crate_arg_name) {
-            versions::print_versions(crate_name.to_string())
+            chit::versions::print_versions(crate_name.to_string())
         } else {
             println!("{}", "No crate supplied".yellow());
         };
     } else if let Some(crate_name) = matches.value_of(crate_arg_name) {
-        details::print_details(crate_name.to_string())
+        chit::details::print_details(crate_name.to_string())
     } else {
         println!(
             "{} {}",

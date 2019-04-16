@@ -2,7 +2,10 @@
 # Change Log
 
 ## 0.1.6 - 
- - Refactor all the actions to their own file
+ - Refactor 
+   - All the actions to their own file
+   - The remove_quote method usage
+ - Add keywords to the output
 
 ## 0.1.5 - A license to ... show
  - Include the software license for the shown crate

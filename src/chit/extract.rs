@@ -17,26 +17,37 @@ pub struct Crate {
     pub recent_downloads: Option<i64>,
     pub repository: String,
     pub documentation: String,
+    pub keywords: Vec<String>,
 }
 
 pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
     let name = format::remove_quotes(json["crate"]["name"].to_string());
     let downloads = json["crate"]["downloads"].as_i64();
     let recent_downloads = json["crate"]["recent_downloads"].as_i64();
-    let repository = format::remove_quotes(json["crate"]["repository"].to_string());
+    let repository = format::remove_quotes(json["crate"]["repository"]
+                                           .to_string());
     let documentation = json["crate"]["documentation"].to_string();
+    
+    let keywords = json["crate"]["keywords"]
+                        .as_array()
+                        .unwrap()
+                        .iter()
+                        .map(|word| format::remove_quotes(word.to_string()))
+                        .collect();
 
     let documentation = if documentation == "null" {
-        format!("Docs: None specified in Cargo.toml")
+        format!("None specified in Cargo.toml")
     } else {
-        format!("Docs: {}", format::remove_quotes(documentation))
+        format::remove_quotes(documentation)
     };
 
     if let Some(versions) = json["versions"].as_array() {
         let versions: Vec<Version> = versions
             .into_iter()
             .map(|version| {
-                let mut date = super::format::remove_quotes(version["updated_at"].to_string());
+                let mut date = super::format::remove_quotes(
+                    version["updated_at"].to_string()
+                );
                 date.truncate(10);
                 return Version {
                     date,
@@ -55,6 +66,7 @@ pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
             recent_downloads,
             repository,
             documentation,
+            keywords,
         })
     } else {
         None

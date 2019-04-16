@@ -60,6 +60,10 @@ pub fn print_details(crate_name: String) {
                 if let Some(size) = recent_version.size_in_bytes {
                     format::print(format!("Crate size: {} kB", (size as f64 / 1000_f64).round()));
                 }
+
+                format::print(
+                    format!("Keywords: {}", fields.keywords.join(", "))
+                );
             }
         }
         None => {

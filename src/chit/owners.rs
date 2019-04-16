@@ -18,24 +18,20 @@ pub fn print_owners(crate_name: String) {
                 .filter(|json| json["kind"] == "user")
             {
                 // Owner
-                format::print(
-                    format!(
-                        "Crates by {}:",
-                            format::remove_quotes(user_json["name"].to_string())
-                    ),
-                );
+                format::print(format!(
+                    "Crates by {}:",
+                    format::remove_quotes(user_json["name"].to_string())
+                ));
 
                 // Crates by owner
                 if let Some(user_id) = user_json["id"].as_u64() {
                     if let Some(user_json) = crates::get(crates::user_url(user_id)) {
                         if let Some(array) = user_json["crates"].as_array() {
                             for thing in array {
-                                format::print(
-                                    format!(
-                                        "    {}",
-                                        format::remove_quotes(thing["id"].to_string())
-                                    ),
-                                );
+                                format::print(format!(
+                                    "    {}",
+                                    format::remove_quotes(thing["id"].to_string())
+                                ));
                             }
                         }
                     }
@@ -47,4 +43,3 @@ pub fn print_owners(crate_name: String) {
 
     println!("{}", format::end_bar(width));
 }
-

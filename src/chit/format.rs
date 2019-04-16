@@ -14,7 +14,7 @@ pub fn title_bar(width: usize, title: &str) -> String {
 }
 
 pub fn print(message: String) {
-    println!("{}",  &message.to_string().blue());
+    println!("{}", &message.to_string().blue());
 }
 
 pub fn end_bar(width: usize) -> String {

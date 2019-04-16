@@ -1,8 +1,8 @@
 use colored::*;
 
 use super::crates;
-use super::format;
 use super::extract;
+use super::format;
 
 pub fn print_details(crate_name: String) {
     let mut width = format::get_width();
@@ -11,11 +11,8 @@ pub fn print_details(crate_name: String) {
     match crates::get(crates::url(&crate_name)) {
         Some(crate_json) => {
             if let Some(fields) = extract::crate_fields(crate_json) {
-
                 // Asume repository is the longest field
-                let repository_details = format!("Repository: {}",
-                    &fields.repository
-                );
+                let repository_details = format!("Repository: {}", &fields.repository);
 
                 if repository_details.len() > width {
                     width = repository_details.len();
@@ -36,34 +33,30 @@ pub fn print_details(crate_name: String) {
                 }
 
                 let recent_version = &fields.versions[0];
-                format::print(
-                    format!("Latest version: {} ({})",
-                        recent_version.semver,
-                        recent_version.date
-                    )
-                );
+                format::print(format!(
+                    "Latest version: {} ({})",
+                    recent_version.semver, recent_version.date
+                ));
 
-                format::print(
-                    format!("Docs: {}", fields.documentation)
-                );
+                format::print(format!("Docs: {}", fields.documentation));
 
                 format::print(repository_details);
 
-                format::print(
-                    format!("Crates.io: https://crates.io/crates/{}", &crate_name)
-                );
+                format::print(format!(
+                    "Crates.io: https://crates.io/crates/{}",
+                    &crate_name
+                ));
 
-                format::print(
-                    format!("License: {}", recent_version.license)
-                );
+                format::print(format!("License: {}", recent_version.license));
 
                 if let Some(size) = recent_version.size_in_bytes {
-                    format::print(format!("Crate size: {} kB", (size as f64 / 1000_f64).round()));
+                    format::print(format!(
+                        "Crate size: {} kB",
+                        (size as f64 / 1000_f64).round()
+                    ));
                 }
 
-                format::print(
-                    format!("Keywords: {}", fields.keywords.join(", "))
-                );
+                format::print(format!("Keywords: {}", fields.keywords.join(", ")));
             }
         }
         None => {
@@ -86,13 +79,14 @@ pub fn print_details(crate_name: String) {
             let owners_names = owners_names.join(", ");
 
             // Owners
-            format::print(
-                format!("Owner{}: {}", if multiple { "s" } else { "" }, owners_names),
-            );
+            format::print(format!(
+                "Owner{}: {}",
+                if multiple { "s" } else { "" },
+                owners_names
+            ));
         }
         None => println!("Failed to get crate owner details"),
     }
 
     println!("{}", format::end_bar(width));
 }
-

@@ -2,8 +2,8 @@ use clap::{App, Arg, SubCommand};
 use colored::*;
 use std::env;
 
-mod meta;
 mod chit;
+mod meta;
 
 fn main() {
     // subcommands
@@ -59,7 +59,7 @@ fn main() {
     // Actions
     if let Some(owners) = matches.subcommand_matches("owners") {
         if let Some(crate_name) = owners.value_of(crate_arg_name) {
-           chit::owners::print_owners(crate_name.to_string())
+            chit::owners::print_owners(crate_name.to_string())
         } else {
             println!("{}", "No crate supplied".yellow());
         };
@@ -79,4 +79,3 @@ fn main() {
         );
     }
 }
-

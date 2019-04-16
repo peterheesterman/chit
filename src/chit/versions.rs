@@ -1,8 +1,8 @@
 use colored::*;
 
 use super::crates;
-use super::format;
 use super::extract;
+use super::format;
 
 pub fn print_versions(crate_name: String) {
     let width = format::get_width();
@@ -16,23 +16,15 @@ pub fn print_versions(crate_name: String) {
                 format::print(String::from("Versions:"));
                 for version in fields.versions {
                     if let Some(size) = version.size_in_bytes {
-                        format::print(
-                            format!(
-                                "    {}  ({}) | {} | {} kB",
-                                version.semver,
-                                version.license,
-                                version.date,
-                                (size as f64 / 1000_f64).round(),
-                            )
-                        );
+                        format::print(format!(
+                            "    {}  ({}) | {} | {} kB",
+                            version.semver,
+                            version.license,
+                            version.date,
+                            (size as f64 / 1000_f64).round(),
+                        ));
                     } else {
-                        format::print(
-                            format!(
-                                "    {} | {}",
-                                version.semver,
-                                version.date
-                            )
-                        );
+                        format::print(format!("    {} | {}", version.semver, version.date));
                     }
                 }
             }

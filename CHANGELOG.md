@@ -1,7 +1,7 @@
 
 # Change Log
 
-## 0.1.6 - 
+## 0.1.6 - The key is in the words
  - Refactor 
    - All the actions to their own file
    - The remove_quote method usage

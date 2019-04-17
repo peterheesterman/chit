@@ -1,6 +1,9 @@
 
 # Change Log
 
+## 0.1.6 - 
+ - Add crate categories to the output
+ 
 ## 0.1.6 - The key is in the words
  - Refactor 
    - All the actions to their own file

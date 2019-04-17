@@ -21,26 +21,23 @@ pub struct Crate {
     pub categories: Vec<String>,
 }
 
+fn get_collect(key: &'static str, json: &serde_json::value::Value) -> Vec<String> {
+    json[key]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|word| format::remove_quotes(word.to_string()))
+        .collect()
+}
+
 pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
     let name = format::remove_quotes(json["crate"]["name"].to_string());
     let downloads = json["crate"]["downloads"].as_i64();
     let recent_downloads = json["crate"]["recent_downloads"].as_i64();
     let repository = format::remove_quotes(json["crate"]["repository"].to_string());
     let documentation = json["crate"]["documentation"].to_string();
-
-    let keywords = json["crate"]["keywords"]
-        .as_array()
-        .unwrap()
-        .iter()
-        .map(|word| format::remove_quotes(word.to_string()))
-        .collect();
-
-    let categories = json["crate"]["categories"]
-        .as_array()
-        .unwrap()
-        .iter()
-        .map(|word| format::remove_quotes(word.to_string()))
-        .collect();
+    let keywords = get_collect("keywords", &json["crate"]);
+    let categories = get_collect("categories", &json["crate"]);
 
     let documentation = if documentation == "null" {
         format!("None specified in Cargo.toml")

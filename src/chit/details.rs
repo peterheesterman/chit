@@ -14,9 +14,17 @@ pub fn print_details(crate_name: String) {
                 // Asume repository is the longest field
                 let repository_details = format!("Repository: {}", &fields.repository);
 
-                if repository_details.len() > width {
-                    width = repository_details.len();
-                }
+                let keywords = format!("Keywords: {}", fields.keywords.join(", "));
+                let categories = format!("Categories: {}", fields.categories.join(", "));
+
+                let large_widths: Vec<usize> = vec![
+                    width,
+                    repository_details.len(),
+                    keywords.len(),
+                    categories.len(),
+                ];
+
+                width = *large_widths.iter().max().unwrap();
 
                 println!("{}", format::title_bar(width, &crate_name));
 
@@ -56,12 +64,8 @@ pub fn print_details(crate_name: String) {
                     ));
                 }
 
-                format::print(
-                    format!("Keywords: {}", fields.keywords.join(", "))
-                );
-                format::print(
-                    format!("Categories: {}", fields.categories.join(", "))
-                );
+                format::print(keywords);
+                format::print(categories);
             }
         }
         None => {

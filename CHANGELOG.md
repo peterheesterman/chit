@@ -1,7 +1,7 @@
 
 # Change Log
 
-## 0.1.7 - 
+## 0.1.7 - Keep it simple . . . for now
  - Add crate categories to the output
  - Add crate description to the output
  

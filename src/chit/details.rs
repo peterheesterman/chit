@@ -56,7 +56,12 @@ pub fn print_details(crate_name: String) {
                     ));
                 }
 
-                format::print(format!("Keywords: {}", fields.keywords.join(", ")));
+                format::print(
+                    format!("Keywords: {}", fields.keywords.join(", "))
+                );
+                format::print(
+                    format!("Categories: {}", fields.categories.join(", "))
+                );
             }
         }
         None => {

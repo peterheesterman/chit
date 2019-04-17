@@ -18,6 +18,7 @@ pub struct Crate {
     pub repository: String,
     pub documentation: String,
     pub keywords: Vec<String>,
+    pub categories: Vec<String>,
 }
 
 pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
@@ -28,6 +29,13 @@ pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
     let documentation = json["crate"]["documentation"].to_string();
 
     let keywords = json["crate"]["keywords"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|word| format::remove_quotes(word.to_string()))
+        .collect();
+
+    let categories = json["crate"]["categories"]
         .as_array()
         .unwrap()
         .iter()
@@ -64,6 +72,7 @@ pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
             repository,
             documentation,
             keywords,
+            categories,
         })
     } else {
         None

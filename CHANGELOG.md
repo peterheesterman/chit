@@ -1,8 +1,9 @@
 
 # Change Log
 
-## 0.1.6 - 
+## 0.1.7 - 
  - Add crate categories to the output
+ - Add crate description to the output
  
 ## 0.1.6 - The key is in the words
  - Refactor 

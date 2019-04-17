@@ -12,6 +12,7 @@ pub struct Version {
 #[derive(Debug, Clone)]
 pub struct Crate {
     pub name: String,
+    pub description: String,
     pub downloads: Option<i64>,
     pub versions: Vec<Version>,
     pub recent_downloads: Option<i64>,
@@ -32,6 +33,7 @@ fn get_collect(key: &'static str, json: &serde_json::value::Value) -> Vec<String
 
 pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
     let name = format::remove_quotes(json["crate"]["name"].to_string());
+    let description = format::remove_quotes(json["crate"]["description"].to_string());
     let downloads = json["crate"]["downloads"].as_i64();
     let recent_downloads = json["crate"]["recent_downloads"].as_i64();
     let repository = format::remove_quotes(json["crate"]["repository"].to_string());
@@ -63,6 +65,7 @@ pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
 
         Some(Crate {
             name,
+            description,
             downloads,
             versions,
             recent_downloads,

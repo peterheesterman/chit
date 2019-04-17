@@ -28,6 +28,18 @@ pub fn print_details(crate_name: String) {
 
                 println!("{}", format::title_bar(width, &crate_name));
 
+                // Description
+                let chars: Vec<char> = fields.description.chars().collect();
+                let split = &chars.chunks(width)
+                        .map(|chunk| chunk.iter().collect::<String>())
+                            .collect::<Vec<_>>();
+
+                for bit in split.iter() {
+                    format::print(bit.to_string());
+                }
+               
+                println!(""); 
+                // Rating
                 let rating = extract::calculate_rating(&fields);
                 format::print_rating(rating);
 

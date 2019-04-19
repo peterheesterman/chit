@@ -1,3 +1,6 @@
+#[macro_use]
+extern crate serde_derive;
+
 use clap::{App, Arg, SubCommand};
 use colored::*;
 use std::env;

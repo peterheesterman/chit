@@ -4,7 +4,10 @@ use super::crates;
 use super::extract;
 use super::format;
 
+mod alternatives;
+
 pub fn print_details(crate_name: String) {
+    
     let mut width = format::get_width();
     println!("{} {}...", "Searching for".magenta(), &crate_name.blue());
 
@@ -30,15 +33,16 @@ pub fn print_details(crate_name: String) {
 
                 // Description
                 let chars: Vec<char> = fields.description.chars().collect();
-                let split = &chars.chunks(width)
-                        .map(|chunk| chunk.iter().collect::<String>())
-                            .collect::<Vec<_>>();
+                let split = &chars
+                    .chunks(width)
+                    .map(|chunk| chunk.iter().collect::<String>())
+                    .collect::<Vec<_>>();
 
                 for bit in split.iter() {
                     format::print(bit.to_string());
                 }
-               
-                println!(""); 
+
+                println!("");
                 // Rating
                 let rating = extract::calculate_rating(&fields);
                 format::print_rating(rating);
@@ -75,6 +79,27 @@ pub fn print_details(crate_name: String) {
                         (size as f64 / 1000_f64).round()
                     ));
                 }
+
+                // TODO: move to another file
+                // ---------------------------------------------------------
+                // TODO: Clean this up by making it less imparative
+                let mut found_alternative = false;
+                let alternatives = alternatives::get_alternatives();
+                'find: for i in 0..alternatives.crates.len() {
+                    if alternatives.crates[i].name == crate_name {
+                        format::print(format!(
+                            "Alternatives: {}",
+                            alternatives.crates[i].alternatives.join(", ")
+                        ));
+                        found_alternative = true;
+                        break 'find;
+                    }
+                }
+               
+                if !found_alternative {
+                    format::print("Alternatives: None listed - Know one? Make a PR!".to_string());
+                }
+                // ---------------------------------------------------------
 
                 format::print(keywords);
                 format::print(categories);

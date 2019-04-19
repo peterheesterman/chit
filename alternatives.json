@@ -1,0 +1,21 @@
+{
+  "description": "Index of rust crates that are alternatives to one another",
+  "crates": [
+    {
+      "name": "sample",
+      "alternatives": ["win", "lose"]
+    },
+    {
+      "name": "win",
+      "alternatives": []
+    },
+    {
+      "name": "lose",
+      "alternatives": []
+    },
+    {
+      "name": "another",
+      "alternatives": []
+    }
+  ]
+}

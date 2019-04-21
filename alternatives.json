@@ -1,21 +1,21 @@
 {
   "description": "Index of rust crates that are alternatives to one another",
   "crates": [
-    {
-      "name": "sample",
-      "alternatives": ["win", "lose"]
-    },
-    {
-      "name": "win",
-      "alternatives": []
-    },
-    {
-      "name": "lose",
-      "alternatives": []
-    },
-    {
-      "name": "another",
-      "alternatives": []
-    }
+    {"name":"gotham","alternatives":["actix-web","iron","nickel","rustful","rocket","rustless","saphir","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
+    { "name": "diesel", "alternatives": ["rustorm"] },
+    { "name": "rustorm", "alternatives": ["diesel"] },
+    {"name":"actix-web","alternatives":["gotham","iron","nickel","rustful","rocket","rustless","saphir","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
+    {"name":"iron","alternatives":["actix-web","gotham","nickel","rustful","rocket","rustless","saphir","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
+    {"name":"nickel","alternatives":["actix-web","gotham","iron","rustful","rocket","rustless","saphir","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
+    {"name":"rocket","alternatives":["actix-web","gotham","iron","nickel","rustful","rustless","saphir","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
+    {"name":"rouille","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","rustless","saphir","sapper","tiny-http","tower-web","sincere","zap"]},
+    {"name":"rustful","alternatives":["actix-web","gotham","iron","nickel","rocket","rustless","saphir","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
+    {"name":"rustless","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","saphir","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
+    {"name":"saphir","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","rustless","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
+    {"name":"sapper","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","rustless","saphir","tiny-http","rouille","tower-web","sincere","zap"]},
+    {"name":"sincere","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","rustless","saphir","sapper","tiny-http","rouille","tower-web","zap"]},
+    {"name":"tiny-http","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","rustless","saphir","sapper","rouille","tower-web","sincere","zap"]},
+    {"name":"tower-web","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","rustless","saphir","sapper","tiny-http","rouille","sincere","zap"]},
+    {"name":"zap","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","rustless","saphir","sapper","tiny-http","rouille","tower-web","sincere"]}    
   ]
 }

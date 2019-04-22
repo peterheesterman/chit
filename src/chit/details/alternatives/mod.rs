@@ -20,3 +20,14 @@ pub fn get_alternatives() -> Alternatives {
         serde_json::from_reader(json_file).expect("error while reading json");
     alternatives
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn can_parse_alternatives() {
+        let alternatives = get_alternatives();
+        assert!(alternatives.crates.len() != 0)
+    }
+}

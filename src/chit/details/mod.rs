@@ -137,13 +137,3 @@ pub fn print_details(crate_name: String) {
     println!("{}", format::end_bar(width));
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn can_parse_alternatives() {
-        let alternatives = alternatives::get_alternatives();
-        assert!(alternatives.crates.len() != 0)
-    }
-}

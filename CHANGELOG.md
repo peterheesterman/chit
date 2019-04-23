@@ -1,9 +1,9 @@
 
 # Change Log
 
-## 0.1.8 - 
- - alternatives for these crates: https://gist.github.com/jrmuizel/4eca07b0f71a9ff3e50e3b34324f8165
- -
+## 0.1.8 - Let the people speak
+ - Alternatives for some common crates
+ - Show up in the details section of the chit
  
 ## 0.1.7 - Keep it simple . . . for now
  - Add crate categories to the output

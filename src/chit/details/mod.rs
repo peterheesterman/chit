@@ -7,7 +7,6 @@ use super::format;
 mod alternatives;
 
 pub fn print_details(crate_name: String) {
-    
     let mut width = format::get_width();
     println!("{} {}...", "Searching for".magenta(), &crate_name.blue());
 
@@ -32,15 +31,7 @@ pub fn print_details(crate_name: String) {
                 println!("{}", format::title_bar(width, &crate_name));
 
                 // Description
-                let chars: Vec<char> = fields.description.chars().collect();
-                let split = &chars
-                    .chunks(width)
-                    .map(|chunk| chunk.iter().collect::<String>())
-                    .collect::<Vec<_>>();
-
-                for bit in split.iter() {
-                    format::print(bit.to_string());
-                }
+                format::bounded_print(width, &fields.description);
 
                 println!("");
                 // Rating
@@ -87,15 +78,16 @@ pub fn print_details(crate_name: String) {
                 let alternatives = alternatives::get_alternatives();
                 'find: for i in 0..alternatives.crates.len() {
                     if alternatives.crates[i].name == crate_name {
-                        format::print(format!(
+                        let list_line = format!(
                             "Alternatives: {}",
                             alternatives.crates[i].alternatives.join(", ")
-                        ));
+                        );
+                        format::bounded_print(width, &list_line);
                         found_alternative = true;
                         break 'find;
                     }
                 }
-               
+
                 if !found_alternative {
                     format::print("Alternatives: None listed - Know one? Make a PR!".to_string());
                 }
@@ -136,4 +128,3 @@ pub fn print_details(crate_name: String) {
 
     println!("{}", format::end_bar(width));
 }
-

@@ -51,3 +51,15 @@ pub fn print_rating(rating: usize) {
 fn n_character(count: usize, string: &str) -> String {
     string.repeat(count)
 }
+
+pub fn bounded_print(width: usize, text: &str) {
+    let chars: Vec<char> = text.chars().collect();
+    let split = &chars
+        .chunks(width)
+        .map(|chunk| chunk.iter().collect::<String>())
+        .collect::<Vec<_>>();
+
+    for bit in split.iter() {
+        print(bit.to_string());
+    }
+}

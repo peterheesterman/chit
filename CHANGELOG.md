@@ -1,7 +1,10 @@
 
 # Change Log
 
-## 0.1.8 - Let the people speak
+## 0.1.9 - Let the people speak for real
+ - Alternatives are set based because Incola suggested it and i like it a lot more
+ 
+## 0.1.8 - Let the people speak - not released
  - Alternatives for some common crates
  - Show up in the details section of the chit
  

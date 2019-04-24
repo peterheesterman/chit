@@ -2,7 +2,7 @@ use std::fs::File;
 use std::path::Path;
 
 #[derive(Serialize, Deserialize)]
-pub struct Crate {
+pub struct AlternativesSet {
     pub name: String,
     pub alternatives: Vec<String>,
 }
@@ -10,7 +10,7 @@ pub struct Crate {
 #[derive(Serialize, Deserialize)]
 pub struct Alternatives {
     pub description: String,
-    pub crates: Vec<Crate>,
+    pub sets: Vec<AlternativesSet>,
 }
 
 pub fn get_alternatives() -> Alternatives {
@@ -28,6 +28,6 @@ mod tests {
     #[test]
     fn can_parse_alternatives() {
         let alternatives = get_alternatives();
-        assert!(alternatives.crates.len() != 0)
+        assert!(alternatives.sets.len() != 0)
     }
 }

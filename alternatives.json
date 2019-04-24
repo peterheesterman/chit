@@ -1,36 +1,71 @@
 {
   "description": "Index of rust crates that are alternatives to one another",
-  "crates": [
-    { "name": "diesel", "alternatives": ["rustorm"] },
-    { "name": "rustorm", "alternatives": ["diesel"] },
-    {"name":"actix-web","alternatives":["gotham","iron","nickel","rustful","rocket","rustless","saphir","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
-    {"name":"clap","alternatives":["getopts","docopt","pirate"]},
-    {"name":"curl","alternatives":["reqwest","hyper"]},
-    {"name":"docopt","alternatives":["clap","getopts","pirate"]},
-    {"name":"env_logger","alternatives":["log4r","fern"]},
-    {"name":"fancy-regex","alternatives":["regex"]},
-    {"name":"fern","alternatives":["env_logger","log4r"]},
-    {"name":"getopts","alternatives":["clap","docopt","pirate"]},
-    {"name":"gotham","alternatives":["actix-web","iron","nickel","rustful","rocket","rustless","saphir","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
-    {"name":"hyper","alternatives":["reqwest","curl"]},
-    {"name":"iron","alternatives":["actix-web","gotham","nickel","rustful","rocket","rustless","saphir","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
-    {"name":"json","alternatives":["serde","jsonway"]},
-    {"name":"jsonway","alternatives":["serde","json"]},
-    {"name":"log4r","alternatives":["env_logger","fern"]},
-    {"name":"nickel","alternatives":["actix-web","gotham","iron","rustful","rocket","rustless","saphir","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
-    {"name":"pirate","alternatives":["clap","getopts","docopt"]},
-    {"name":"regex","alternatives":["fancy-regex"]},
-    {"name":"reqwest","alternatives":["hyper","curl"]},
-    {"name":"rocket","alternatives":["actix-web","gotham","iron","nickel","rustful","rustless","saphir","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
-    {"name":"rouille","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","rustless","saphir","sapper","tiny-http","tower-web","sincere","zap"]},
-    {"name":"rustful","alternatives":["actix-web","gotham","iron","nickel","rocket","rustless","saphir","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
-    {"name":"rustless","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","saphir","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
-    {"name":"saphir","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","rustless","sapper","tiny-http","rouille","tower-web","sincere","zap"]},
-    {"name":"sapper","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","rustless","saphir","tiny-http","rouille","tower-web","sincere","zap"]},
-    {"name":"serde","alternatives":["json","jsonway"]},
-    {"name":"sincere","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","rustless","saphir","sapper","tiny-http","rouille","tower-web","zap"]},
-    {"name":"tiny-http","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","rustless","saphir","sapper","rouille","tower-web","sincere","zap"]},
-    {"name":"tower-web","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","rustless","saphir","sapper","tiny-http","rouille","sincere","zap"]},
-    {"name":"zap","alternatives":["actix-web","gotham","iron","nickel","rustful","rocket","rustless","saphir","sapper","tiny-http","rouille","tower-web","sincere"]}
+  "sets": [
+    {
+      "name": "orms",
+      "alternatives": [
+        "rustorm",
+        "diesel"
+      ]
+    },
+    {
+      "name": "web frameworks",
+      "alternatives": [
+        "gotham",
+        "actix-web",
+        "iron",
+        "nickel",
+        "rustful",
+        "rocket",
+        "rustless",
+        "saphir",
+        "sapper",
+        "tiny-http",
+        "rouille",
+        "tower-web",
+        "sincere",
+        "zap"
+      ]
+    },
+    {
+      "name": "argument parsers",
+      "alternatives": [
+        "getopts",
+        "clap",
+        "docopt",
+        "pirate"
+      ]
+    },
+    {
+      "name": "http requests",
+      "alternatives": [
+        "reqwest",
+        "hyper",
+        "curl"
+      ]
+    },
+    {
+      "name": "regex",
+      "alternatives": [
+        "regex",
+        "fancy-regex"
+      ]
+    },
+    {
+      "name": "logging",
+      "alternatives": [
+        "env_logger",
+        "log4r",
+        "fern"
+      ]
+    },
+    {
+      "name": "json",
+      "alternatives": [
+        "serde",
+        "jsonway",
+        "json"
+      ]
+    }
   ]
 }

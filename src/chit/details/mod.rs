@@ -76,11 +76,15 @@ pub fn print_details(crate_name: String) {
                 // TODO: Clean this up by making it less imparative
                 let mut found_alternative = false;
                 let alternatives = alternatives::get_alternatives();
-                'find: for i in 0..alternatives.crates.len() {
-                    if alternatives.crates[i].name == crate_name {
+
+                'find: for i in 0..alternatives.sets.len() {
+                    let set = &alternatives.sets[i];
+                    if set.alternatives.iter().any(|x| x == &crate_name) {
+                            let mut alternatives = set.alternatives.clone();
+                            alternatives.retain(|x| *x != crate_name);
                         let list_line = format!(
                             "Alternatives: {}",
-                            alternatives.crates[i].alternatives.join(", ")
+                            alternatives.join(", ")
                         );
                         format::bounded_print(width, &list_line);
                         found_alternative = true;

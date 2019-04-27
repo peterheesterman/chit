@@ -4,14 +4,14 @@ A tool for looking up details about rust crates without going to crates.io.
 
 ### Installation
 
-Cargo intalled already? `cargo install chit`.
+Cargo installed already? `cargo install chit`.
 
 If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/installation.html)
 
 
 ### Use
 
-`chit hex-buffer-serde` OR `chit --crate=hex-buffer-serde`
+`chit rocket` OR `chit --crate=rocket`
 
 <img src="https://github.com/peterheesterman/chit/blob/master/readme-images/chit.png?raw=true" width="496"  height="386"/>
 

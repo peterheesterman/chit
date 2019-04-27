@@ -1,6 +1,10 @@
 
 # Change Log
 
+### 0.1.10 - read the alternatives from github
+ - luteberget reported and issue where a panic happens when listing alternatives.
+ - 8176135 fix this! Champion!
+
 ## 0.1.9 - Let the people speak for real
  - Alternatives are set based because Incola suggested it and i like it a lot more
  

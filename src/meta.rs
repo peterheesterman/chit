@@ -1,5 +1,5 @@
 pub fn get_version() -> &'static str {
-    "0.1.9"
+    "0.1.10"
 }
 
 pub fn get_author() -> &'static str {

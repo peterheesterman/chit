@@ -31,33 +31,41 @@ pub fn remove_quotes(value: String) -> String {
     string
 }
 
-// TODO: This should return a String
 pub fn print_rating(rating: usize) {
-    let stars = n_character(rating, "🌟 ");
-    let star_rating = format!("Rating: {}", stars);
+    let star_rating = get_stars(rating);
 
     if rating > 0 && rating < 6 {
         println!("{}", &star_rating.to_string().blue());
     }
 }
 
-// privates
+pub fn get_stars(rating: usize) -> String {
+    let stars = n_character(rating, "🌟 ");
+    format!("Rating: {}", stars)
+}
+
+pub fn bound_lines(width: usize, text: &str) -> Vec<String> {
+    let chars: Vec<char> = text.chars().collect();
+    let lines = &chars
+        .chunks(width)
+        .map(|chunk| chunk.iter().collect::<String>())
+        .collect::<Vec<_>>();
+    lines.to_vec()
+}
+
+pub fn bounded_print(width: usize, text: &str) {
+    for line in bound_lines(width, text).iter() {
+        print(line.to_string());
+    }
+}
+
 fn n_character(count: usize, string: &str) -> String {
     string.repeat(count)
 }
 
-pub fn bounded_print(width: usize, text: &str) {
-    let chars: Vec<char> = text.chars().collect();
-    let split = &chars
-        .chunks(width)
-        .map(|chunk| chunk.iter().collect::<String>())
-        .collect::<Vec<_>>();
-
-    for bit in split.iter() {
-        print(bit.to_string());
-    }
-}
-
+// Idea: we should use a string array ["-", "title", "------"] and combine with 
+// [blue, bold, blue,]
+// [id, blue, id] to get output that is desired so that we can easily test
 
 #[cfg(test)]
 mod tests {
@@ -85,6 +93,19 @@ mod tests {
     fn remove_quotes_should_remove_a_single_set_of_quotes() {
         let quoted = String::from("\"Something\"");
         assert_eq!(remove_quotes(quoted), String::from("Something"));
+    }
+
+    #[test]
+    fn get_stars_should_have_constant_length_for_n_stars() {
+        let stars = get_stars(2);
+        assert_eq!(stars.len(), 18);
+    }
+
+    #[test]
+    fn bound_lines_are_width_lengthed() {
+        let width = 20_usize;
+        let lines = bound_lines(width, "Test that this is going to come out as a set width and nothing more.");
+        assert_eq!(lines[0].len(), width);
     }
 }
 

@@ -1,9 +1,13 @@
 
 # Change Log
 
+### 0.1.12 - Pushing code quality
+ - Add a Owners type to the extraction model
+ - Refactor owners to be a more functional flavour
+ 
 ### 0.1.11 - Refactor all the things
- - refactor format module and add some tests
- - refactor version to be a more functional flavour
+ - Refactor format module and add some tests
+ - Refactor version to be a more functional flavour
  - Add a roadmap section to the readme
  - Added more logging options
  - Add error types and results for alternatives

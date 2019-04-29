@@ -1,4 +1,4 @@
-use super::format;
+use super::super::format;
 
 #[derive(Debug, Clone)]
 pub struct Version {
@@ -31,7 +31,7 @@ fn get_collect(key: &'static str, json: &serde_json::value::Value) -> Vec<String
         .collect()
 }
 
-pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
+pub fn fields(json: serde_json::value::Value) -> Option<Crate> {
     let name = format::remove_quotes(json["crate"]["name"].to_string());
     let description = format::remove_quotes(json["crate"]["description"].to_string());
     let downloads = json["crate"]["downloads"].as_i64();
@@ -51,7 +51,7 @@ pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
         let versions: Vec<Version> = versions
             .into_iter()
             .map(|version| {
-                let mut date = super::format::remove_quotes(version["updated_at"].to_string());
+                let mut date = format::remove_quotes(version["updated_at"].to_string());
                 date.truncate(10);
                 return Version {
                     date,
@@ -82,7 +82,7 @@ pub fn crate_fields(json: serde_json::value::Value) -> Option<Crate> {
 pub fn calculate_rating(crate_info: &Crate) -> usize {
     let five = 20000;
     let four = 5000;
-    let three = 1000;
+    let three = 1000; // TODO: change to 750
     let two = 100;
 
     if let Some(recent_downloads) = crate_info.recent_downloads {
@@ -101,3 +101,7 @@ pub fn calculate_rating(crate_info: &Crate) -> usize {
         0
     }
 }
+
+// TODO: add tests:
+//  - for extraction
+//  - for rating calculation

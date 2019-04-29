@@ -6,11 +6,10 @@ use super::format;
 
 pub fn print_versions(crate_name: String) {
     let width = format::get_width();
-    let search_message = format::get_crate_search_message(&crate_name);
-    println!("{}", search_message);
+    println!("{}", format::get_crate_search_message(&crate_name));
     match crates::get(crates::url(&crate_name)) {
         Some(crate_json) => {
-            if let Some(fields) = extract::crate_fields(crate_json) {
+            if let Some(fields) = extract::package::fields(crate_json) {
                 let lines = describe_versions(width, fields);
                 for line in lines {
                     println!("{}", line);
@@ -25,7 +24,7 @@ pub fn print_versions(crate_name: String) {
     println!("{}", format::end_bar(width));
 }
 
-fn describe_versions(width: usize, fields: extract::Crate) -> Vec<String> {
+fn describe_versions(width: usize, fields: extract::package::Crate) -> Vec<String> {
     let mut lines = Vec::new();
 
     lines.push(format!("{}", format::title_bar(width, &fields.name)));
@@ -58,15 +57,15 @@ mod tests {
 
     #[test]
     fn describe_versions_should_have_consistent_output() {
-        let versions: Vec<extract::Version> = vec![
-            extract::Version {
+        let versions: Vec<extract::package::Version> = vec![
+            extract::package::Version {
                 date: String::from("some date"),
                 semver: String::from("0.1.3"),
                 downloads: Some(220),
                 size_in_bytes: Some(20),
                 license: String::from("MIT"),
             },
-            extract::Version {
+            extract::package::Version {
                 date: String::from("some date"),
                 semver: String::from("0.1.1"),
                 downloads: Some(120),
@@ -75,7 +74,7 @@ mod tests {
             },
         ];
 
-        let crate_details = extract::Crate {
+        let crate_details = extract::package::Crate {
             name: String::from("name"),
             description: String::from("name"),
             downloads: Some(100),

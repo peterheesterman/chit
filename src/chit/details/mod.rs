@@ -12,7 +12,7 @@ pub fn print_details(crate_name: String) {
 
     match crates::get(crates::url(&crate_name)) {
         Some(crate_json) => {
-            if let Some(fields) = extract::crate_fields(crate_json) {
+            if let Some(fields) = extract::package::fields(crate_json) {
                 // Asume repository is the longest field
                 let repository_details = format!("Repository: {}", &fields.repository);
 
@@ -35,7 +35,7 @@ pub fn print_details(crate_name: String) {
 
                 println!("");
                 // Rating
-                let rating = extract::calculate_rating(&fields);
+                let rating = extract::package::calculate_rating(&fields);
                 format::print_rating(rating);
 
                 // Download count

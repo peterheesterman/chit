@@ -63,9 +63,10 @@ fn n_character(count: usize, string: &str) -> String {
     string.repeat(count)
 }
 
-// Idea: we should use a string array ["-", "title", "------"] and combine with 
-// [blue, bold, blue,]
-// [id, blue, id] to get output that is desired so that we can easily test
+pub fn get_crate_search_message(crate_name: &str) -> String {
+    format!(" {} {}...", "Searching for".magenta(), &crate_name.blue())
+}
+
 
 #[cfg(test)]
 mod tests {
@@ -106,6 +107,12 @@ mod tests {
         let width = 20_usize;
         let lines = bound_lines(width, "Test that this is going to come out as a set width and nothing more.");
         assert_eq!(lines[0].len(), width);
+    }
+
+    #[test]
+    fn crate_search_message_is_the_same_over_time() {
+        let message = get_crate_search_message("test");
+        assert_eq!(message.len(), 40);
     }
 }
 

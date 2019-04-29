@@ -3,6 +3,7 @@
 
 ### 0.1.11 - read the alternatives from github
  - refactor format module and add some tests
+ - refactor version to be a more functional flavour
 
 ### 0.1.10 - read the alternatives from github
  - luteberget reported and issue where a panic happens when listing alternatives.

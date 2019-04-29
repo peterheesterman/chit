@@ -31,3 +31,15 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
   - What are the downloads over time?
   - Should i use this crate? 
   - How mature is it? <Star rating>
+
+### Roadmap: 
+(Would love Pull requests that build towards these objectives)
+ - [ ] Tests
+   - [ ] Versions
+   - [ ] Owners
+   - [ ] Crate details
+ - [ ] Add a CI pipeline that runs the tests
+ - [ ] Change error handling to use result types
+ - [ ] Use some more functional programming techniques to cut the code size down
+ - [ ] Support windows by removing the use of color when windows binary is being built
+ - [ ] distribute through brew, apt-get, etc...

@@ -35,7 +35,7 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
 ### Roadmap: 
 (Would love Pull requests that build towards these objectives)
  - [ ] Tests
-   - [ ] Versions
+   - [x] Versions
    - [ ] Owners
    - [ ] Crate details
  - [ ] Add a CI pipeline that runs the tests

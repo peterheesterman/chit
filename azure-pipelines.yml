@@ -1,0 +1,24 @@
+trigger:
+  branches:
+    include:
+    - refs/heads/master
+
+jobs:
+  - job: run_cargo_test
+    displayName: "cargo test"
+    strategy:
+      matrix:
+        Linux:
+          vmImage: ubuntu-16.04
+        MacOS:
+          vmImage: macOS-10.13
+        Windows:
+          vmImage: vs2017-win2016
+    pool:
+      vmImage: $(vmImage)
+    steps:
+    - template: ci/azure-install-rust.yml
+      parameters:
+        rust_version: stable
+    - script: cargo test
+      displayName: Cargo test

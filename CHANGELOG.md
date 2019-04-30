@@ -1,10 +1,12 @@
 
 # Change Log
 
-### 0.1.11 - read the alternatives from github
+### 0.1.11 - Refactor all the things
  - refactor format module and add some tests
  - refactor version to be a more functional flavour
  - Add a roadmap section to the readme
+ - Added more logging options
+ - Add error types and results for alternatives
 
 ### 0.1.10 - read the alternatives from github
  - luteberget reported and issue where a panic happens when listing alternatives.

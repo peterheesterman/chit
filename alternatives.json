@@ -55,14 +55,18 @@
       "name": "logging",
       "alternatives": [
         "env_logger",
-        "log4r",
-        "fern"
+        "log4rs",
+        "fern",
+        "slog",
+        "pretty_env_logger",
+        "simplelog",
+        "syslog"
       ]
     },
     {
       "name": "json",
       "alternatives": [
-        "serde",
+        "serde_json",
         "jsonway",
         "json"
       ]

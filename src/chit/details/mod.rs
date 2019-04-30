@@ -77,21 +77,31 @@ pub fn print_details(crate_name: String) {
                 let mut found_alternative = false;
                 let alternatives = alternatives::get_alternatives();
 
-                'find: for i in 0..alternatives.sets.len() {
-                    let set = &alternatives.sets[i];
-                    if set.alternatives.iter().any(|x| x == &crate_name) {
-                        let mut alternatives = set.alternatives.clone();
-                        alternatives.retain(|x| *x != crate_name);
-                        let list_line = format!("Alternatives: {}", alternatives.join(", "));
-                        format::bounded_print(width, &list_line);
-                        found_alternative = true;
-                        break 'find;
+                match alternatives {
+                    Ok(alternatives) => {
+                        for i in 0..alternatives.sets.len() {
+                            let set = &alternatives.sets[i];
+
+                            if !set.alternatives.iter().any(|x| x == &crate_name) {
+                                continue;
+                            }
+
+                            let mut alternatives = set.alternatives.clone();
+                            alternatives.retain(|x| *x != crate_name);
+                            let list_line = format!("Alternatives: {}", alternatives.join(", "));
+                            format::bounded_print(width, &list_line);
+                            found_alternative = true;
+                        }
+
+                        if !found_alternative {
+                            format::print("Alternatives: None listed - Know one? Make a PR!".to_string());
+                        }
+                    }
+                    Err(err) => {
+                        format::print(format!("Error retrieving alternatives because: {}", err));
                     }
                 }
 
-                if !found_alternative {
-                    format::print("Alternatives: None listed - Know one? Make a PR!".to_string());
-                }
                 // ---------------------------------------------------------
 
                 format::print(keywords);

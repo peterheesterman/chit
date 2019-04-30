@@ -34,20 +34,23 @@ fn describe_versions(width: usize, fields: extract::Crate) -> Vec<String> {
     for version in fields.versions {
         if let Some(size) = version.size_in_bytes {
             lines.push(format!(
-                    "    {}  {} | {} | {}",
-                    version.semver.blue(),
-                    format!("({})", version.license).blue(),
-                    version.date.blue(),
-                    format!("{} kB", (size as f64 / 1000_f64).round()).blue(),
-                    ));
+                "    {}  {} | {} | {}",
+                version.semver.blue(),
+                format!("({})", version.license).blue(),
+                version.date.blue(),
+                format!("{} kB", (size as f64 / 1000_f64).round()).blue(),
+            ));
         } else {
-            lines.push(format!("    {} | {}", version.semver.blue(), version.date.blue()));
+            lines.push(format!(
+                "    {} | {}",
+                version.semver.blue(),
+                version.date.blue()
+            ));
         }
     }
-    
+
     lines
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -59,17 +62,17 @@ mod tests {
             extract::Version {
                 date: String::from("some date"),
                 semver: String::from("0.1.3"),
-                downloads: Some(220), 
+                downloads: Some(220),
                 size_in_bytes: Some(20),
                 license: String::from("MIT"),
-            }, 
+            },
             extract::Version {
                 date: String::from("some date"),
                 semver: String::from("0.1.1"),
-                downloads: Some(120), 
+                downloads: Some(120),
                 size_in_bytes: Some(10),
                 license: String::from("MIT"),
-            }
+            },
         ];
 
         let crate_details = extract::Crate {
@@ -81,7 +84,7 @@ mod tests {
             repository: String::from("name"),
             documentation: String::from("name"),
             keywords: vec![String::from("keyword")],
-            categories: vec![String::from("keyword")], 
+            categories: vec![String::from("keyword")],
         };
 
         let lines = describe_versions(40, crate_details);

@@ -1,7 +1,6 @@
-use std::io::Read;
 use std::error::Error;
 use std::fmt;
-use reqwest::StatusCode;
+use std::io::Read;
 
 #[derive(Serialize, Deserialize)]
 pub struct AlternativesSet {
@@ -27,11 +26,12 @@ impl fmt::Display for RetrieveAlternativesError {
         match self {
             RetrieveAlternativesError::ParseError(err) => write!(f, "Parse error: {}", err),
             RetrieveAlternativesError::ReadError(err) => write!(f, "Read error: {}", err),
-            RetrieveAlternativesError::ConnectionError(err) => write!(f, "Connection error: {}", err),
+            RetrieveAlternativesError::ConnectionError(err) => {
+                write!(f, "Connection error: {}", err)
+            }
         }
     }
 }
-
 
 // This is important for other errors to wrap this one.
 impl Error for RetrieveAlternativesError {
@@ -81,8 +81,7 @@ pub fn get_alternatives() -> Result<Alternatives, RetrieveAlternativesError> {
 
     res.read_to_string(&mut res_body)?;
 
-    let alternatives: Alternatives =
-        serde_json::from_str(&res_body)?;
+    let alternatives: Alternatives = serde_json::from_str(&res_body)?;
 
     Ok(alternatives)
 }

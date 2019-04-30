@@ -67,13 +67,12 @@ pub fn get_crate_search_message(crate_name: &str) -> String {
     format!(" {} {}...", "Searching for".magenta(), &crate_name.blue())
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn  get_width_should_return_45() {
+    fn get_width_should_return_45() {
         let width = get_width();
         assert_eq!(width, 45);
     }
@@ -105,7 +104,10 @@ mod tests {
     #[test]
     fn bound_lines_are_width_lengthed() {
         let width = 20_usize;
-        let lines = bound_lines(width, "Test that this is going to come out as a set width and nothing more.");
+        let lines = bound_lines(
+            width,
+            "Test that this is going to come out as a set width and nothing more.",
+        );
         assert_eq!(lines[0].len(), width);
     }
 
@@ -115,4 +117,3 @@ mod tests {
         assert_eq!(message.len(), 40);
     }
 }
-

@@ -94,7 +94,9 @@ pub fn print_details(crate_name: String) {
                         }
 
                         if !found_alternative {
-                            format::print("Alternatives: None listed - Know one? Make a PR!".to_string());
+                            format::print(
+                                "Alternatives: None listed - Know one? Make a PR!".to_string(),
+                            );
                         }
                     }
                     Err(err) => {

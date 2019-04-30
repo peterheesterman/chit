@@ -2,6 +2,17 @@
 
 A tool for looking up details about rust crates without going to crates.io.
 
+
+### Chit helps answer these questions:
+  - Who wrote this crate? What else did they write?
+  - What alternatives are there?
+  - How old is this crate?
+  - What versions are there? When did they come out?
+  - What are the downloads over time?
+  - Should i use this crate? 
+  - How mature is it? <Star rating>
+  
+
 ### Installation
 
 Cargo installed already? `cargo install chit`.
@@ -23,14 +34,6 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
 
 <img src="https://github.com/peterheesterman/chit/blob/master/readme-images/owners.png?raw=true" width="390"  height="93"/>
 
-
-### Chit should help answer these questions:
-  - Who wrote this crate? What else did they write?
-  - How old is this crate?
-  - What versions are there? When did they come out?
-  - What are the downloads over time?
-  - Should i use this crate? 
-  - How mature is it? <Star rating>
 
 ### Roadmap: 
 (Would love Pull requests that build towards these objectives)

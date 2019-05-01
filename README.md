@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/chitbuilds/chit/_apis/build/status/peterheesterman.chit?branchName=master)](https://dev.azure.com/chitbuilds/chit/_build/latest?definitionId=1&branchName=master)
+
 ## Chit: Crate help in terminal
 
 A tool for looking up details about rust crates without going to crates.io.

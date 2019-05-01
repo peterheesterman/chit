@@ -52,6 +52,8 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
    - [ ] Owners
    - [ ] Crate details
  - [x] Add a CI pipeline that runs the tests
+ - [ ] Make a logo for chit
+ - [ ] Add another command e.g. `chit repo` which might get meta data like stars and collaborator numbers etc
  - [ ] Change error handling to use result types
  - [ ] Use some more functional programming techniques to cut the code size down
  - [ ] Support windows by removing the use of color when windows binary is being built

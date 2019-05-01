@@ -1,5 +1,8 @@
 [![Build Status](https://dev.azure.com/chitbuilds/chit/_apis/build/status/peterheesterman.chit?branchName=master)](https://dev.azure.com/chitbuilds/chit/_build/latest?definitionId=1&branchName=master)
-
+[![Downloads](https://img.shields.io/crates/d/chit.svg)](https://crates.io/crates/chit)
+[![Stars](https://img.shields.io/github/stars/peterheesterman/chit.svg?style=popout
+)](https://github.com/peterheesterman/chit/stargazers)
+[![Collaborators](https://img.shields.io/github/contributors/peterheesterman/chit.svg)](https://github.com/peterheesterman/chit/graphs/contributors)
 ## Chit: Crate help in terminal
 
 A tool for looking up details about rust crates without going to crates.io.
@@ -39,6 +42,11 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
 
 ### Roadmap: 
 (Would love Pull requests that build towards these objectives)
+ - [x] Add badges
+   - [x] Builds
+   - [x] Downloads
+   - [x] Stars
+   - [x] Collaborators
  - [ ] Tests
    - [x] Versions
    - [ ] Owners

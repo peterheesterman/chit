@@ -43,7 +43,7 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
    - [x] Versions
    - [ ] Owners
    - [ ] Crate details
- - [ ] Add a CI pipeline that runs the tests
+ - [x] Add a CI pipeline that runs the tests
  - [ ] Change error handling to use result types
  - [ ] Use some more functional programming techniques to cut the code size down
  - [ ] Support windows by removing the use of color when windows binary is being built

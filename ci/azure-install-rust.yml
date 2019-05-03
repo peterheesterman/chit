@@ -1,3 +1,6 @@
+parameters:
+  rust_version: 'stable'
+
 steps:
   # Linux and macOS.
   - script: |

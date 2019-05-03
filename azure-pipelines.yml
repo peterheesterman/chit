@@ -2,8 +2,22 @@ trigger:
   branches:
     include:
     - refs/heads/master
+    - refs/tags/*
 
 jobs:
+  - job: run_rustfmt
+    displayName: "Run rust fmt"
+    pool:
+        vmImage: ubuntu-16.04
+    steps:
+    - template: ci/azure-install-rust.yml
+    - script: |
+        rustup component add rustfmt
+      displayName: Install rustfmt
+    - script: |
+        cargo fmt --all -- --check
+      displayName: Check formatting
+
   - job: run_cargo_test
     displayName: "cargo test"
     strategy:
@@ -18,7 +32,119 @@ jobs:
       vmImage: $(vmImage)
     steps:
     - template: ci/azure-install-rust.yml
-      parameters:
-        rust_version: stable
     - script: cargo test
       displayName: Cargo test
+
+  - job: create_linux_binary
+    displayName: "Create release binaries for Linux"
+    pool:
+      vmImage: ubuntu-16.04
+    steps:
+      - template: ci/azure-install-rust.yml  
+      - script: rustup target add x86_64-unknown-linux-musl
+        displayName: Add unknown linux target
+      - script: |
+          sudo apt update -y
+          sudo apt install musl-tools -y
+        displayName: "Install musl-tools"
+      - script: cargo build --target x86_64-unknown-linux-musl --features vendored-openssl --release
+        displayName: cargo build
+      - template: ci/azure-publish-artifact.yml
+        parameters:
+          artifacts: target/x86_64-unknown-linux-musl/release
+          name: dist_linux        
+
+  - job: create_windows_binary
+    displayName: "Create release binaries for Windows"
+    pool:
+      vmImage: vs2017-win2016
+    steps:
+      - template: ci/azure-install-rust.yml  
+      - script: cargo build --release
+        displayName: cargo build
+      - template: ci/azure-publish-artifact.yml
+        parameters:
+          name: dist_windows                  
+
+  - job: create_macOS_binary
+    displayName: "Create release binaries for MacOS"
+    pool:
+      vmImage: macOS-10.13
+    steps:
+      - template: ci/azure-install-rust.yml  
+      - script: cargo build --release
+        env:
+          MACOSX_DEPLOYMENT_TARGET: 10.7        
+        displayName: cargo build
+      - template: ci/azure-publish-artifact.yml
+        parameters:
+          name: dist_macos                  
+
+  - job: deploy_release
+    displayName: "Deploy release"
+    dependsOn:
+      - run_rustfmt
+      - run_cargo_test
+      - create_linux_binary      
+      - create_windows_binary  
+      - create_macOS_binary    
+    steps:
+      - task: DownloadPipelineArtifact@0
+        displayName: "Download release - Linux"
+        inputs:
+          artifactName: dist_linux
+          targetPath: $(System.DefaultWorkingDirectory)/linux      
+      - task: ArchiveFiles@2
+        displayName: Gather assets Linux
+        inputs:
+          rootFolderOrFile: $(System.DefaultWorkingDirectory)/linux/chit
+          archiveType: 'zip'
+          archiveFile: $(System.DefaultWorkingDirectory)/x86_64-unknown-linux-musl.zip            
+      - task: DownloadPipelineArtifact@0
+        displayName: "Download release - Windows"
+        inputs:
+          artifactName: dist_windows
+          targetPath: $(System.DefaultWorkingDirectory)/windows      
+      - task: ArchiveFiles@2
+        displayName: Gather assets Windows
+        inputs:
+          rootFolderOrFile: $(System.DefaultWorkingDirectory)/windows/chit.exe
+          archiveType: 'zip'
+          archiveFile: $(System.DefaultWorkingDirectory)/x86_64-pc-windows-msvc.zip        
+      - task: DownloadPipelineArtifact@0
+        displayName: "Download release - MacOS"
+        inputs:
+          artifactName: dist_macos
+          targetPath: $(System.DefaultWorkingDirectory)/macos      
+      - task: ArchiveFiles@2
+        displayName: Gather assets MacOS
+        inputs:
+          rootFolderOrFile: $(System.DefaultWorkingDirectory)/macos/chit
+          archiveType: 'zip'
+          archiveFile: $(System.DefaultWorkingDirectory)/x86_64-apple-darwin.zip                    
+      - script: dir
+        workingDirectory: $(System.DefaultWorkingDirectory)
+        displayName: List contents of a folder         
+      - script: |
+          DATE="$(date +%Y-%m-%d)"
+          echo "##vso[task.setvariable variable=build.date]$DATE"
+        displayName: "Create date variable"
+      - script: |
+          MY_TAG="$(Build.SourceBranch)"
+          MY_TAG=${MY_TAG#refs/tags/}
+          echo $MY_TAG
+          echo "##vso[task.setvariable variable=build.my_tag]$MY_TAG"
+        displayName: "Create my tag variable"         
+      - task: GithubRelease@0
+        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+        inputs:
+          gitHubConnection: 'peterheesterman'
+          repositoryName: 'peterheesterman/chit'
+          action: 'edit'
+          target: '$(build.sourceVersion)'
+          tagSource: 'manual'
+          tag: '$(build.my_tag)'
+          assets: '$(System.DefaultWorkingDirectory)/*.zip'
+          title: '$(build.my_tag) - $(build.date)'
+          assetUploadMode: 'replace'  
+          addChangeLog: false

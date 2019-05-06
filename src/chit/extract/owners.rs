@@ -1,40 +1,18 @@
 use super::super::format;
-use serde_json::json;
 
 #[derive(Debug, Clone)]
-pub struct User {
-    pub name: String,
-    pub id: Option<i64>,
-    pub kind: String,
-}
-
-#[derive(Debug, Clone)]
-pub struct UserWithAuthoredCrates {
-    pub name: String,
-    pub id: Option<i64>,
-    pub kind: String,
+pub struct AuthoredCrates {
     pub authored_crates: Vec<String>,
 }
 
-#[derive(Debug, Clone)]
-pub struct CrateOwners {
-    pub users: Vec<User>,
-}
-
-pub fn fields(json: serde_json::value::Value) -> Option<CrateOwners> {
-    if let Some(users) = json["users"].as_array() {
-        let users = users
+pub fn fields(json: serde_json::value::Value) -> Option<AuthoredCrates> {
+    if let Some(crates) = json["crates"].as_array() {
+        let authored_crates = crates
             .into_iter()
-            .map(|user| {
-                return User {
-                    name: format::remove_quotes(user["name"].to_string()),
-                    kind: format::remove_quotes(user["kind"].to_string()),
-                    id: user["id"].as_i64(),
-                };
-            })
+            .map(|package| return format::remove_quotes(package["id"].to_string()))
             .collect();
 
-        Some(CrateOwners { users })
+        Some(AuthoredCrates { authored_crates })
     } else {
         None
     }
@@ -43,20 +21,36 @@ pub fn fields(json: serde_json::value::Value) -> Option<CrateOwners> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use serde_json::json;
 
     #[test]
     fn can_get_owners_fields() {
-        let json = json!(  {
-            "users": [{
-                "avatar": "https://avatars2.githubusercontent.com/u/16065728?v=4",
-                "id": 28804,
-                "kind": "user",
-                "name": "Peter Heesterman",
+        let json = json!({
+            "crates": [{
+                "id": "chit",
+                "name": "chit",
+                "links": {
+                    "owner_user": "/api/v1/crates/chit/owner_user",
+                    "reverse_dependencies": "/api/v1/crates/chit/reverse_dependencies"
+                }
+            }, {
+                "id": "lsb_png_steganography",
+                "name": "lsb_png_steganography",
+                "links": {
+                    "owner_user": "/api/v1/crates/lsb_png_steganography/owner_user",
+                    "reverse_dependencies": "/api/v1/crates/lsb_png_steganography/reverse_dependencies"
+                }
             }]
         });
 
         assert!(match fields(json) {
-            Some(_) => true,
+            Some(set) => {
+                if set.authored_crates.len() == 2 {
+                    true
+                } else {
+                    false
+                }
+            }
             None => false,
         });
     }

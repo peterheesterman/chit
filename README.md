@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://github.com/peterheesterman/chit" target="_blank">
+    <img alt="Chit" src="https://github.com/peterheesterman/chit/blob/master/readme-images/chit-logo.png?raw=true" width="256">
+  </a>
+</p>
+
 [![Build Status](https://dev.azure.com/chitbuilds/chit/_apis/build/status/peterheesterman.chit?branchName=master)](https://dev.azure.com/chitbuilds/chit/_build/latest?definitionId=1&branchName=master)
 [![Downloads](https://img.shields.io/crates/d/chit.svg)](https://crates.io/crates/chit)
 [![Stars](https://img.shields.io/github/stars/peterheesterman/chit.svg?style=popout
@@ -53,7 +59,7 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
    - [x] Owners
    - [ ] Crate details
  - [x] Add a CI pipeline that runs the tests
- - [ ] Make a logo for chit
+ - [x] Make a logo for chit
  - [ ] Add another command e.g. `chit repo` which might get meta data like stars and collaborator numbers etc
  - [ ] Change error handling to use result types
  - [ ] Use some more functional programming techniques to cut the code size down

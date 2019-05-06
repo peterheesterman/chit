@@ -12,8 +12,14 @@ Thanks for taking the time to contribute to Chit! 🎉 Chit welcomes pull reques
 
 [pr]: https://github.com/peterheesterman/chit/pulls
 
+
+## Passing the build
+ 1. Run the auto formatter by using `cargo fmt` in terminal.
+ 2. Run the tests by using the `cargo test` in terminal.
+ 
+
 ## Alternatives
 
- Please add them, i will be very happen accept suggestions and PRs for more alternatives.
+ Please add them, i will be very happily accept suggestions and PRs for more alternatives.
 
- Please note that currently chit pulls the `alternatives.json` from `peterheesterman/github` master directly so if you want to test adding more you will need configure the alternatives module to read a local file for development purposes. 
+ Please note that currently chit pulls the `alternatives.json` from `peterheesterman/github` master directly so if you want to test adding more you will need to configure the alternatives module to read a local file for development purposes. 

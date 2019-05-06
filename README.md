@@ -3,9 +3,10 @@
 [![Stars](https://img.shields.io/github/stars/peterheesterman/chit.svg?style=popout
 )](https://github.com/peterheesterman/chit/stargazers)
 [![Collaborators](https://img.shields.io/github/contributors/peterheesterman/chit.svg)](https://github.com/peterheesterman/chit/graphs/contributors)
+
 ## Chit: Crate help in terminal
 
-A tool for looking up details about rust crates without going to crates.io.
+A command-line tool for looking up details about rust crates without going to crates.io.
 
 
 ### Chit helps answer these questions:
@@ -40,7 +41,7 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
 <img src="https://github.com/peterheesterman/chit/blob/master/readme-images/owners.png?raw=true" width="390"  height="93"/>
 
 
-### Roadmap: 
+## Roadmap: 
 (Would love Pull requests that build towards these objectives)
  - [x] Add badges
    - [x] Builds
@@ -49,12 +50,18 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
    - [x] Collaborators
  - [ ] Tests
    - [x] Versions
-   - [ ] Owners
+   - [x] Owners
    - [ ] Crate details
  - [x] Add a CI pipeline that runs the tests
  - [ ] Make a logo for chit
  - [ ] Add another command e.g. `chit repo` which might get meta data like stars and collaborator numbers etc
  - [ ] Change error handling to use result types
  - [ ] Use some more functional programming techniques to cut the code size down
- - [ ] Support windows by removing the use of color when windows binary is being built
  - [ ] distribute through brew, apt-get, etc...
+
+## Contributors
+See the [fantastic people](https://github.com/peterheesterman/chit/graphs/contributors) who have made chit.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](./LICENSE.md) file for details
+

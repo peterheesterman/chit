@@ -64,5 +64,6 @@ mod tests {
         assert_eq!(lines[0].len(), 21);
         assert_eq!(lines[1].len(), 8);
         assert_eq!(lines[2].len(), 9);
+        assert_eq!(lines.len(), 3);
     }
 }

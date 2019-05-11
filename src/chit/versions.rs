@@ -1,13 +1,14 @@
 use colored::*;
 
-use super::crates;
+use super::sources::{ get };
+use super::sources::crates;
 use super::extract;
 use super::format;
 
 pub fn print_versions(crate_name: String) {
     let width = format::get_width();
     println!("{}", format::get_crate_search_message(&crate_name));
-    match crates::get(crates::url(&crate_name)) {
+    match get(crates::url(&crate_name)) {
         Some(crate_json) => {
             if let Some(fields) = extract::package::fields(crate_json) {
                 let lines = describe_versions(width, fields);

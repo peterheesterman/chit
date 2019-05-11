@@ -2,6 +2,6 @@ pub mod details;
 pub mod owners;
 pub mod versions;
 
-mod crates;
+mod sources;
 mod extract;
 mod format;

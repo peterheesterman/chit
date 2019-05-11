@@ -1,6 +1,7 @@
 use colored::*;
 
-use super::crates;
+use super::sources::{ get } ;
+use super::sources::crates;
 use super::extract;
 use super::format;
 
@@ -10,7 +11,7 @@ pub fn print_details(crate_name: String) {
     let mut width = format::get_width();
     println!("{} {}...", "Searching for".magenta(), &crate_name.blue());
 
-    match crates::get(crates::url(&crate_name)) {
+    match get(crates::url(&crate_name)) {
         Some(crate_json) => {
             if let Some(fields) = extract::package::fields(crate_json) {
                 // Asume repository is the longest field
@@ -116,7 +117,7 @@ pub fn print_details(crate_name: String) {
         }
     }
 
-    match crates::get(crates::owners_url(&crate_name)) {
+    match get(crates::owners_url(&crate_name)) {
         Some(crate_owners_json) => {
             let owners_names: Vec<String> = crate_owners_json["users"]
                 .as_array()

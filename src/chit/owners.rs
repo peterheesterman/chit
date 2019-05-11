@@ -1,6 +1,7 @@
 use colored::*;
 
-use super::crates;
+use super::sources::{ get };
+use super::sources::crates;
 use super::extract;
 use super::format;
 
@@ -8,7 +9,7 @@ pub fn print_owners(crate_name: String) {
     let width = format::get_width();
     println!("{} {}...", "Searching for".magenta(), &crate_name.blue());
 
-    match crates::get(crates::owners_url(&crate_name)) {
+    match get(crates::owners_url(&crate_name)) {
         Some(crate_owners_json) => {
             println!("{}", format::title_bar(width, &crate_name));
 
@@ -21,7 +22,7 @@ pub fn print_owners(crate_name: String) {
                 let name = format::remove_quotes(user_json["name"].to_string());
 
                 if let Some(user_id) = user_json["id"].as_u64() {
-                    if let Some(user_json) = crates::get(crates::user_url(user_id)) {
+                    if let Some(user_json) = get(crates::user_url(user_id)) {
                         if let Some(set) = extract::owners::fields(user_json) {
                             let lines = format_owner_details(&name, set);
                             for line in lines {

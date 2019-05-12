@@ -13,5 +13,9 @@ pub fn fields(json: serde_json::value::Value) -> RepositoryInfo {
     let stars = json["stargazers_count"].as_i64();
     let issues = json["open_issues_count"].as_i64();
 
-    RepositoryInfo { last_commit_date, stars, issues }
+    RepositoryInfo {
+        last_commit_date,
+        stars,
+        issues,
+    }
 }

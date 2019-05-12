@@ -1,9 +1,9 @@
 use colored::*;
 
-use super::sources::{ get } ;
-use super::sources::crates;
 use super::extract;
 use super::format;
+use super::sources::crates;
+use super::sources::get;
 
 mod alternatives;
 

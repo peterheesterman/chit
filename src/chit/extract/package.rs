@@ -112,10 +112,10 @@ mod tests {
 
     #[test]
     fn calculate_star_ratings_can_get_every_level_back() {
-        assert_eq!(rate(32) , 1);
-        assert_eq!(rate(101) , 2);
-        assert_eq!(rate(1000) , 3);
-        assert_eq!(rate(5001) , 4);
-        assert_eq!(rate(1000000) , 5);
+        assert_eq!(rate(32), 1);
+        assert_eq!(rate(101), 2);
+        assert_eq!(rate(1000), 3);
+        assert_eq!(rate(5001), 4);
+        assert_eq!(rate(1000000), 5);
     }
 }

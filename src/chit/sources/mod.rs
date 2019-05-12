@@ -1,4 +1,4 @@
-extern crate reqwest; 
+extern crate reqwest;
 use std::io::Read;
 
 pub mod crates;

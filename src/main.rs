@@ -19,7 +19,16 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() == 2 {
         let crate_name = args[1].clone();
-        let reserved = vec![help, versions, owners, repo, "-h", "--help", "-V", "--version"];
+        let reserved = vec![
+            help,
+            versions,
+            owners,
+            repo,
+            "-h",
+            "--help",
+            "-V",
+            "--version",
+        ];
         if !reserved.contains(&&crate_name.as_str()) {
             chit::details::print_details(crate_name.to_string());
             return;

@@ -15,4 +15,3 @@ pub fn user_url(user_id: u64) -> String {
         ENDPOINT, per_page, user_id
     )
 }
-

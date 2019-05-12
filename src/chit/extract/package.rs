@@ -80,28 +80,42 @@ pub fn fields(json: serde_json::value::Value) -> Option<Crate> {
 }
 
 pub fn calculate_rating(crate_info: &Crate) -> usize {
-    let five = 20000;
-    let four = 5000;
-    let three = 1000; // TODO: change to 750
-    let two = 100;
-
     if let Some(recent_downloads) = crate_info.recent_downloads {
-        if recent_downloads > five {
-            5
-        } else if recent_downloads > four {
-            4
-        } else if recent_downloads > three {
-            3
-        } else if recent_downloads > two {
-            2
-        } else {
-            1
-        }
+        rate(recent_downloads)
     } else {
         0
     }
 }
 
-// TODO: add tests:
-//  - for extraction
-//  - for rating calculation
+fn rate(input: i64) -> usize {
+    let five = 20000;
+    let four = 5000;
+    let three = 750;
+    let two = 100;
+
+    if input > five {
+        5
+    } else if input > four {
+        4
+    } else if input > three {
+        3
+    } else if input > two {
+        2
+    } else {
+        1
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn calculate_star_ratings_can_get_every_level_back() {
+        assert_eq!(rate(32) , 1);
+        assert_eq!(rate(101) , 2);
+        assert_eq!(rate(1000) , 3);
+        assert_eq!(rate(5001) , 4);
+        assert_eq!(rate(1000000) , 5);
+    }
+}

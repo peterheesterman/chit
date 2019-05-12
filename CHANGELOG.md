@@ -2,6 +2,7 @@
 # Change Log
 
 ### 0.1.12 - Pushing code quality
+ - Change the 3 star threshold down to 750 from 1000 recent downloads
  - Add a new sub command repo - for things from github
  - Add a Owners type to the extraction model
  - Refactor owners to be a more functional flavour

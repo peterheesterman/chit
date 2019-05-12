@@ -64,12 +64,18 @@ mod tests {
     #[test]
     fn describe_versions_should_have_consistent_output() {
 
-        let repository_details = extract::package::RepositoryInfo {
-            date: String::from("fake date"),
+        let repository_details = extract::repo::RepositoryInfo {
+            last_commit_date: String::from("fake date"),
             stars: Some(100),
+            issues: Some(2),
         };
 
         let lines = describe_repository(40, "testBane", repository_details);
+
+        assert_eq!(lines[0].len(), 133);
+        assert_eq!(lines[1].len(), 36);
+        assert_eq!(lines[2].len(), 26);
+        assert_eq!(lines[3].len(), 25);
         assert_eq!(lines.len(), 4);
     }
 }

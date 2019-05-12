@@ -61,7 +61,6 @@ mod tests {
         };
 
         let lines = format_owner_details("ownerName1", owner);
-        println!("{:?}", lines);
         assert_eq!(lines[0].len(), 21);
         assert_eq!(lines[1].len(), 8);
         assert_eq!(lines[2].len(), 9);

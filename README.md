@@ -46,6 +46,9 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
 
 <img src="https://github.com/peterheesterman/chit/blob/master/readme-images/owners.png?raw=true" width="390"  height="93"/>
 
+`chit repo --crate=chit`
+
+<img src="https://github.com/peterheesterman/chit/blob/master/readme-images/repo.png?raw=true" width="465"  height="115"/>
 
 ## Roadmap: 
 (Would love Pull requests that build towards these objectives)
@@ -60,7 +63,7 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
    - [ ] Crate details
  - [x] Add a CI pipeline that runs the tests
  - [x] Make a logo for chit
- - [ ] Add another command e.g. `chit repo` which might get meta data like stars and collaborator numbers etc
+ - [x] Add another command e.g. `chit repo` which might get meta data like stars and collaborator numbers etc
  - [ ] Change error handling to use result types
  - [ ] Use some more functional programming techniques to cut the code size down
  - [ ] distribute through brew, apt-get, etc...

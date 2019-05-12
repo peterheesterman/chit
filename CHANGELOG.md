@@ -2,6 +2,7 @@
 # Change Log
 
 ### 0.1.12 - Pushing code quality
+ - Add a new sub command repo - for things from github
  - Add a Owners type to the extraction model
  - Refactor owners to be a more functional flavour
  

@@ -1,13 +1,23 @@
 
+
+pub fn check(url: &str) -> bool {
+    url.contains("github.com")
+}
+
+pub fn api_url(url: String) -> String {
+    format!(
+        "{}{}", 
+        "https://api.github.com/repos/", 
+        crop_letters(url.as_str(), 19)
+    )
+}
+ // https://github.com/peterheesterman/chit
  // https://api.github.com/repos/peterheesterman/chit 
-
-
-// Plan
-//
-// If the repo === github
-//     contruct a url or the form above
-// Else
-//     Nothing
-// EndIf
-//
-// Get the star_gazers and things
+ // IDEA: add the number of pull requests open on the repository as well.
+ // /peterheesterman/chit/pulls?state=open
+ fn crop_letters(s: &str, pos: usize) -> &str {
+    match s.char_indices().skip(pos).next() {
+        Some((pos, _)) => &s[pos..],
+        None => "",
+    }
+}

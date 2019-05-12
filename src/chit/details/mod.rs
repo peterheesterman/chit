@@ -72,9 +72,7 @@ pub fn print_details(crate_name: String) {
                     ));
                 }
 
-                // TODO: move to another file
-                // ---------------------------------------------------------
-                // TODO: Clean this up by making it less imparative
+                // IDEA: Clean this up by making it less imparative and into another file
                 let mut found_alternative = false;
                 let alternatives = alternatives::get_alternatives();
 
@@ -104,8 +102,6 @@ pub fn print_details(crate_name: String) {
                         format::print(format!("Error retrieving alternatives because: {}", err));
                     }
                 }
-
-                // ---------------------------------------------------------
 
                 format::print(keywords);
                 format::print(categories);

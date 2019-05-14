@@ -94,8 +94,8 @@ mod tests {
     /// Tests if the alternatives.json file in the root of this crate can be parsed.
     #[test]
     fn can_parse_alternatives() {
-        let alternatives: Alternatives = serde_json::from_str(&ALTERNATIVES_JSON)
-            .expect("Alternative parsing failed");
+        let alternatives: Alternatives =
+            serde_json::from_str(&ALTERNATIVES_JSON).expect("Alternative parsing failed");
         assert_ne!(alternatives.sets.len(), 0)
     }
 }

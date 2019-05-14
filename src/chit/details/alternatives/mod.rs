@@ -90,9 +90,12 @@ pub fn get_alternatives() -> Result<Alternatives, RetrieveAlternativesError> {
 mod tests {
     use super::*;
 
+    const ALTERNATIVES_JSON: &str = include_str!("../../../../alternatives.json");
+    /// Tests if the alternatives.json file in the root of this crate can be parsed.
     #[test]
     fn can_parse_alternatives() {
-        let alternatives = get_alternatives().expect("Alternative retrieval failed");
+        let alternatives: Alternatives = serde_json::from_str(&ALTERNATIVES_JSON)
+            .expect("Alternative parsing failed");
         assert_ne!(alternatives.sets.len(), 0)
     }
 }

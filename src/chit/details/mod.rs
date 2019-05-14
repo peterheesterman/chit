@@ -72,7 +72,7 @@ pub fn print_details(crate_name: String) {
                     ));
                 }
 
-                // IDEA: Clean this up by making it less imparative and into another file
+                // IDEA: Clean this up by making it less imperative and into another file
                 let mut found_alternative = false;
                 let alternatives = alternatives::get_alternatives();
 

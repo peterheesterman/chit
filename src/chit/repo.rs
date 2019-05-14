@@ -7,17 +7,20 @@ use super::sources::get;
 use super::sources::github;
 
 pub fn print_repo(crate_name: String) {
-    let width = format::get_width();
     println!("{}", format::get_crate_search_message(&crate_name));
     match get(crates::url(&crate_name)) {
         Some(crate_json) => {
             if let Some(fields) = extract::package::fields(crate_json) {
                 if github::check(fields.repository.as_str()) {
-                    let url = github::api_url(fields.repository);
+                    let url = github::api_url(&fields.repository);
                     match get(url) {
                         Some(repository_json) => {
                             let repo_fields = extract::repo::fields(repository_json);
-                            let lines = describe_repository(width, &crate_name, repo_fields);
+                            let lines = describe_repository(
+                                &crate_name,
+                                fields.repository.as_str(),
+                                repo_fields,
+                            );
                             for line in lines {
                                 println!("{}", line);
                             }
@@ -37,17 +40,24 @@ pub fn print_repo(crate_name: String) {
             return;
         }
     }
-    println!("{}", format::end_bar(width));
 }
 
 fn describe_repository(
-    width: usize,
     crate_name: &str,
+    repository_url: &str,
     fields: extract::repo::RepositoryInfo,
 ) -> Vec<String> {
     let mut lines = Vec::new();
 
+    let mut width = format::get_width();
+    let repo = format!("{} {}", "Repository: ", repository_url).blue();
+
+    let large_widths: Vec<usize> = vec![width, repo.len()];
+
+    width = *large_widths.iter().max().unwrap();
+
     lines.push(format!("{}", format::title_bar(width, &crate_name)));
+    lines.push(format!("{}", repo));
     lines.push(format!(
         "{}",
         format!("{} {}", "Last commit date:", fields.last_commit_date).blue()
@@ -67,6 +77,8 @@ fn describe_repository(
         ));
     }
 
+    lines.push(format!("{}", format::end_bar(width)));
+
     lines
 }
 
@@ -82,12 +94,14 @@ mod tests {
             issues: Some(2),
         };
 
-        let lines = describe_repository(40, "testBane", repository_details);
+        let lines = describe_repository("testBane", "urlfortest", repository_details);
 
-        assert_eq!(lines[0].len(), 133);
-        assert_eq!(lines[1].len(), 36);
-        assert_eq!(lines[2].len(), 26);
-        assert_eq!(lines[3].len(), 25);
-        assert_eq!(lines.len(), 4);
+        assert_eq!(lines[0].len(), 148);
+        assert_eq!(lines[1].len(), 32);
+        assert_eq!(lines[2].len(), 36);
+        assert_eq!(lines[3].len(), 26);
+        assert_eq!(lines[4].len(), 25);
+        assert_eq!(lines[5].len(), 144);
+        assert_eq!(lines.len(), 6);
     }
 }

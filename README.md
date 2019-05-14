@@ -31,6 +31,9 @@ Cargo installed already? `cargo install chit`.
 
 If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/installation.html)
 
+#### Nix package manager
+
+`nix-env -iA nixpkgs.chit`
 
 ### Use
 

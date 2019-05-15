@@ -14,7 +14,7 @@ pub fn print_details(crate_name: String) {
     match get(crates::url(&crate_name)) {
         Some(crate_json) => {
             if let Some(fields) = extract::package::fields(crate_json) {
-                // Asume repository is the longest field
+                // Assume repository is the longest field
                 let repository_details = format!("Repository: {}", &fields.repository);
 
                 let keywords = format!("Keywords: {}", fields.keywords.join(", "));
@@ -29,12 +29,13 @@ pub fn print_details(crate_name: String) {
 
                 width = *large_widths.iter().max().unwrap();
 
-                println!("{}", format::title_bar(width, &crate_name));
+                // Print the retrieved crate name
+                println!("{}", format::title_bar(width, &fields.name));
 
                 // Description
                 format::bounded_print(width, &fields.description);
 
-                println!("");
+                println!();
                 // Rating
                 let rating = extract::package::calculate_rating(&fields);
                 format::print_rating(rating);
@@ -60,7 +61,7 @@ pub fn print_details(crate_name: String) {
 
                 format::print(format!(
                     "Crates.io: https://crates.io/crates/{}",
-                    &crate_name
+                    &fields.name
                 ));
 
                 format::print(format!("License: {}", recent_version.license));
@@ -72,6 +73,16 @@ pub fn print_details(crate_name: String) {
                     ));
                 }
 
+                // Does crate contain unsafe code?
+                if super::unsafe_check::contains_unsafe(&fields.name, &recent_version.semver)
+                    .expect("Failed to download crate")
+                {
+                    format::print("This crate contains ⚔️unsafe⚔️ code!".to_owned());
+                } else {
+                    // Not quite true... there might be unsafe code within macros.
+                    format::print("This crate contains no ✔️unsafe✔️ code!".to_owned());
+                }
+
                 // IDEA: Clean this up by making it less imperative and into another file
                 let mut found_alternative = false;
                 let alternatives = alternatives::get_alternatives();
@@ -81,12 +92,12 @@ pub fn print_details(crate_name: String) {
                         for i in 0..alternatives.sets.len() {
                             let set = &alternatives.sets[i];
 
-                            if !set.alternatives.iter().any(|x| x == &crate_name) {
+                            if !set.alternatives.iter().any(|x| x == &crate_name || x == &fields.name) {
                                 continue;
                             }
 
                             let mut alternatives = set.alternatives.clone();
-                            alternatives.retain(|x| *x != crate_name);
+                            alternatives.retain(|x| *x != crate_name && x != &fields.name);
                             let list_line = format!("Alternatives: {}", alternatives.join(", "));
                             format::bounded_print(width, &list_line);
                             found_alternative = true;

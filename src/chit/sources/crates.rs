@@ -4,6 +4,10 @@ pub fn url(crate_name: &str) -> String {
     format!("{}/{}", ENDPOINT, crate_name)
 }
 
+pub fn download_url(crate_name: &str, version: &str) -> String {
+    format!("{}/{}/{}/download", ENDPOINT, crate_name, version)
+}
+
 pub fn owners_url(crate_name: &str) -> String {
     format!("{}/{}/owners", ENDPOINT, crate_name)
 }

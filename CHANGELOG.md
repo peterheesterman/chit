@@ -1,6 +1,10 @@
 
 # Change Log
 
+### 0.1.13 - The nix version
+ - Add repository url to repo command output
+ - Change change get alternatives test to test syntax only 
+
 ### 0.1.12 - Pushing code quality
  - Change the 3 star threshold down to 750 from 1000 recent downloads
  - Add a new sub command repo - for things from github

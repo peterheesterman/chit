@@ -2,11 +2,11 @@ pub fn check(url: &str) -> bool {
     url.contains("github.com")
 }
 
-pub fn api_url(url: String) -> String {
+pub fn api_url(url: &str) -> String {
     format!(
         "{}{}",
         "https://api.github.com/repos/",
-        crop_letters(url.as_str(), 19)
+        crop_letters(url, 19)
     )
 }
 // https://github.com/peterheesterman/chit

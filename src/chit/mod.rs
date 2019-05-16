@@ -6,3 +6,4 @@ pub mod versions;
 mod extract;
 mod format;
 mod sources;
+mod unsafe_check;

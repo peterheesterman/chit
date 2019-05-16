@@ -29,7 +29,6 @@ pub fn download_to_memory(url: String) -> Option<Vec<u8>> {
     let req = reqwest::get(&url);
     match req {
         Ok(mut res) => {
-
             if res.status().is_success() {
                 let mut res_body = Vec::new();
 

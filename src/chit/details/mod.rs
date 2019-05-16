@@ -92,7 +92,11 @@ pub fn print_details(crate_name: String) {
                         for i in 0..alternatives.sets.len() {
                             let set = &alternatives.sets[i];
 
-                            if !set.alternatives.iter().any(|x| x == &crate_name || x == &fields.name) {
+                            if !set
+                                .alternatives
+                                .iter()
+                                .any(|x| x == &crate_name || x == &fields.name)
+                            {
                                 continue;
                             }
 

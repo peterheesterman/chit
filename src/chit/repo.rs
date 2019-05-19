@@ -50,7 +50,7 @@ fn describe_repository(
     let mut lines = Vec::new();
 
     let mut width = format::get_width();
-    let repo = format!("{} {}", "Repository: ", repository_url).blue();
+    let repo = format!("{} {}", "Repository: ", repository_url).bright_blue();
 
     let large_widths: Vec<usize> = vec![width, repo.len()];
 
@@ -60,20 +60,20 @@ fn describe_repository(
     lines.push(format!("{}", repo));
     lines.push(format!(
         "{}",
-        format!("{} {}", "Last commit date:", fields.last_commit_date).blue()
+        format!("{} {}", "Last commit date:", fields.last_commit_date).bright_blue()
     ));
 
     if let Some(stars) = fields.stars {
         lines.push(format!(
             "{}",
-            format!("{} {}", "Github Stars:", stars).blue()
+            format!("{} {}", "Github Stars:", stars).bright_blue()
         ));
     }
 
     if let Some(issues) = fields.issues {
         lines.push(format!(
             "{}",
-            format!("{} {}", "Github Issues:", issues).blue()
+            format!("{} {}", "Github Issues:", issues).bright_blue()
         ));
     }
 

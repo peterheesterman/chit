@@ -29,22 +29,22 @@ fn describe_versions(width: usize, fields: extract::package::Crate) -> Vec<Strin
     let mut lines = Vec::new();
 
     lines.push(format!("{}", format::title_bar(width, &fields.name)));
-    lines.push(format!("{}", "Versions:".blue()));
+    lines.push(format!("{}", "Versions:".bright_blue()));
 
     for version in fields.versions {
         if let Some(size) = version.size_in_bytes {
             lines.push(format!(
                 "    {}  {} | {} | {}",
-                version.semver.blue(),
-                format!("({})", version.license).blue(),
-                version.date.blue(),
-                format!("{} kB", (size as f64 / 1000_f64).round()).blue(),
+                version.semver.bright_blue(),
+                format!("({})", version.license).bright_blue(),
+                version.date.bright_blue(),
+                format!("{} kB", (size as f64 / 1000_f64).round()).bright_blue(),
             ));
         } else {
             lines.push(format!(
                 "    {} | {}",
-                version.semver.blue(),
-                version.date.blue()
+                version.semver.bright_blue(),
+                version.date.bright_blue()
             ));
         }
     }

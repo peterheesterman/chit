@@ -7,7 +7,7 @@ pub fn get_width() -> usize {
 }
 
 pub fn print(message: String) {
-    println!("{}", &message.to_string().blue());
+    println!("{}", &message.to_string().bright_blue());
 }
 
 pub fn title_bar(width: usize, title: &str) -> String {
@@ -15,7 +15,7 @@ pub fn title_bar(width: usize, title: &str) -> String {
     format!(
         "{}{}{}",
         HORIZONTAL.magenta(),
-        title.blue().bold(),
+        title.bright_blue().bold(),
         n_character(fill, HORIZONTAL).magenta()
     )
 }
@@ -35,7 +35,7 @@ pub fn print_rating(rating: usize) {
     let star_rating = get_stars(rating);
 
     if rating > 0 && rating < 6 {
-        println!("{}", &star_rating.to_string().blue());
+        println!("{}", &star_rating.to_string().bright_blue());
     }
 }
 
@@ -64,7 +64,7 @@ fn n_character(count: usize, string: &str) -> String {
 }
 
 pub fn get_crate_search_message(crate_name: &str) -> String {
-    format!(" {} {}...", "Searching for".magenta(), &crate_name.blue())
+    format!(" {} {}...", "Searching for".magenta(), &crate_name.bright_blue())
 }
 
 #[cfg(test)]

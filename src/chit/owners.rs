@@ -7,7 +7,7 @@ use super::sources::get;
 
 pub fn print_owners(crate_name: String) {
     let width = format::get_width();
-    println!("{} {}...", "Searching for".magenta(), &crate_name.blue());
+    println!("{} {}...", "Searching for".magenta(), &crate_name.bright_blue());
 
     match get(crates::owners_url(&crate_name)) {
         Some(crate_owners_json) => {
@@ -26,7 +26,7 @@ pub fn print_owners(crate_name: String) {
                         if let Some(set) = extract::owners::fields(user_json) {
                             let lines = format_owner_details(&name, set);
                             for line in lines {
-                                println!("{}", line.blue());
+                                println!("{}", line.bright_blue());
                             }
                         }
                     }

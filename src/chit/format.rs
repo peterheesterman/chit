@@ -64,7 +64,11 @@ fn n_character(count: usize, string: &str) -> String {
 }
 
 pub fn get_crate_search_message(crate_name: &str) -> String {
-    format!(" {} {}...", "Searching for".magenta(), &crate_name.bright_blue())
+    format!(
+        " {} {}...",
+        "Searching for".magenta(),
+        &crate_name.bright_blue()
+    )
 }
 
 #[cfg(test)]

@@ -7,7 +7,11 @@ use super::sources::get;
 
 pub fn print_owners(crate_name: String) {
     let width = format::get_width();
-    println!("{} {}...", "Searching for".magenta(), &crate_name.bright_blue());
+    println!(
+        "{} {}...",
+        "Searching for".magenta(),
+        &crate_name.bright_blue()
+    );
 
     match get(crates::owners_url(&crate_name)) {
         Some(crate_owners_json) => {

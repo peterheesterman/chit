@@ -9,7 +9,11 @@ mod alternatives;
 
 pub fn print_details(crate_name: String) {
     let mut width = format::get_width();
-    println!("{} {}...", "Searching for".magenta(), &crate_name.bright_blue());
+    println!(
+        "{} {}...",
+        "Searching for".magenta(),
+        &crate_name.bright_blue()
+    );
 
     match get(crates::url(&crate_name)) {
         Some(crate_json) => {

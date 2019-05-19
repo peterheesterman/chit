@@ -1,7 +1,11 @@
 
 # Change Log
+### 0.1.14 - Make it bright
+ - Change the color to be bright blue for text so that it is easier to read
 
 ### 0.1.13 - The nix version
+ - Add repository url to repo command output
+ - Change change get alternatives test to test syntax only 
  - Add repository url to repo command output
  - Change change get alternatives test to test syntax only 
 

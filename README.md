@@ -17,11 +17,11 @@ A command-line tool for looking up details about rust crates without going to cr
 
 ### Chit helps answer these questions:
   - Who wrote this crate? What else did they write?
-  - What alternatives are there?
+  - What alternatives are there for this crate?
   - How old is this crate?
   - What versions are there? When did they come out?
-  - What are the downloads over time?
-  - Should i use this crate? 
+  - What are the download numbers over time?
+  - Should I use this crate? 
   - How mature is it? <Star rating>
   
 
@@ -29,7 +29,7 @@ A command-line tool for looking up details about rust crates without going to cr
 
 Cargo installed already? `cargo install chit`.
 
-If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/installation.html)
+If not... find out [how to install cargo!](https://doc.rust-lang.org/cargo/getting-started/installation.html)
 
 #### Nix package manager
 
@@ -55,11 +55,6 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
 
 ## Roadmap: 
 (Would love Pull requests that build towards these objectives)
- - [x] Add badges
-   - [x] Builds
-   - [x] Downloads
-   - [x] Stars
-   - [x] Collaborators
  - [ ] Tests
    - [x] Versions
    - [x] Owners
@@ -70,6 +65,7 @@ If not... [find out how!](https://doc.rust-lang.org/cargo/getting-started/instal
  - [ ] Change error handling to use result types
  - [ ] Use some more functional programming techniques to cut the code size down
  - [ ] distribute through brew, apt-get, etc...
+ - [ ] expand the repository details returned by the `repo` command
 
 ## Contributors
 See the [fantastic people](https://github.com/peterheesterman/chit/graphs/contributors) who have made chit.

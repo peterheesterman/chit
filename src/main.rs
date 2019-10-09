@@ -62,7 +62,7 @@ fn main() {
         )
         .subcommand(
             SubCommand::with_name(versions)
-                .about("Find out details about a crateis versions")
+                .about("Find out details about a crates versions")
                 .version(semver)
                 .author(author)
                 .arg(crate_arg.clone()),

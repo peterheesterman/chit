@@ -131,11 +131,14 @@ pub fn print_details(crate_name: String) {
             let owners_names = owners_names.join(", ");
 
             // Owners
-            format::print(format!(
-                "Owner{}: {}",
-                if multiple { "s" } else { "" },
-                owners_names
-            ));
+            format::bounded_print(
+                width,
+                &format!(
+                    "Owner{}: {}",
+                    if multiple { "s" } else { "" },
+                    owners_names
+                ));
+
         }
         None => println!("Failed to get crate owner details"),
     }

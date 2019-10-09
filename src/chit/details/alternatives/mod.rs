@@ -43,7 +43,7 @@ impl Error for RetrieveAlternativesError {
         }
     }
 
-    fn cause(&self) -> Option<&Error> {
+    fn cause(&self) -> Option<&dyn Error> {
         // Generic error, underlying cause isn't tracked.
         Some(match self {
             RetrieveAlternativesError::ParseError(err) => err,

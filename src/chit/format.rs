@@ -1,4 +1,6 @@
 use colored::*;
+use hyphenation::{Language, Load, Standard};
+use textwrap::Wrapper;
 
 const HORIZONTAL: &str = "─";
 
@@ -44,19 +46,10 @@ pub fn get_stars(rating: usize) -> String {
     format!("Rating: {}", stars)
 }
 
-pub fn bound_lines(width: usize, text: &str) -> Vec<String> {
-    let chars: Vec<char> = text.chars().collect();
-    let lines = &chars
-        .chunks(width)
-        .map(|chunk| chunk.iter().collect::<String>())
-        .collect::<Vec<_>>();
-    lines.to_vec()
-}
-
 pub fn bounded_print(width: usize, text: &str) {
-    for line in bound_lines(width, text).iter() {
-        print(line.to_string());
-    }
+    let hyphenator = Standard::from_embedded(Language::EnglishUS).unwrap();
+    let wrapper = Wrapper::with_splitter(width, hyphenator);
+    print(wrapper.fill(text.replace("\\n", " ").trim_end()));
 }
 
 fn n_character(count: usize, string: &str) -> String {
@@ -103,16 +96,6 @@ mod tests {
     fn get_stars_should_have_constant_length_for_n_stars() {
         let stars = get_stars(2);
         assert_eq!(stars.len(), 18);
-    }
-
-    #[test]
-    fn bound_lines_are_width_lengthed() {
-        let width = 20_usize;
-        let lines = bound_lines(
-            width,
-            "Test that this is going to come out as a set width and nothing more.",
-        );
-        assert_eq!(lines[0].len(), width);
     }
 
     #[test]

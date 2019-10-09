@@ -133,12 +133,8 @@ pub fn print_details(crate_name: String) {
             // Owners
             format::bounded_print(
                 width,
-                &format!(
-                    "Owner{}: {}",
-                    if multiple { "s" } else { "" },
-                    owners_names
-                ));
-
+                &format!("Owner{}: {}", if multiple { "s" } else { "" }, owners_names),
+            );
         }
         None => println!("Failed to get crate owner details"),
     }

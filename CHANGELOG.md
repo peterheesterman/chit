@@ -1,5 +1,9 @@
 
 # Change Log
+
+### 0.1.15 - hyphenation
+ - mthh fix a typo and added hyphens to the end of wrapping line when required.
+ 
 ### 0.1.14 - Make it bright
  - Change the color to be bright blue for text so that it is easier to read
 
